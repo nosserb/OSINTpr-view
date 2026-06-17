@@ -526,7 +526,7 @@ function updateScoreboard() {
     });
     const total = document.createElement('div');
     total.className = 'scoreboard-entry';
-    total.innerHTML = `<strong>Total</strong><strong>${score} / 900 pts</strong>`;
+    total.innerHTML = `<strong>Total</strong><strong>${score} / 1150 pts</strong>`;
     list.appendChild(total);
 }
 
