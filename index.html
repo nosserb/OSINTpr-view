@@ -51,9 +51,6 @@
             <div class="dock-item" data-app="terminal" title="Terminal">
                 <div class="dock-icon terminal-icon">>&nbsp;</div>
             </div>
-            <div class="dock-item" data-app="files" title="Fichiers">
-                <div class="dock-icon files-icon">&#128193;</div>
-            </div>
             <div class="dock-item" data-app="notes" title="Notes">
                 <div class="dock-icon notes-icon">&#128221;</div>
             </div>
@@ -85,15 +82,60 @@
         <!-- Fake Google -->
         <div id="google-overlay" style="display:none;">
             <div class="google-page">
-                <div class="google-logo">
-                    <span style="color:#4285f4">G</span><span style="color:#ea4335">o</span><span style="color:#fbbc05">o</span><span style="color:#4285f4">g</span><span style="color:#34a853">l</span><span style="color:#ea4335">e</span>
+                <div class="google-sidebar" id="google-sidebar">
+                    <div class="sidebar-header">
+                        <span>&#128269; FICHE ENQUETE</span>
+                        <span id="sidebar-toggle">&#9660;</span>
+                    </div>
+                    <div class="sidebar-score">
+                        SCORE: <span id="score-display">100</span> / 100
+                    </div>
+                    <div class="sidebar-body" id="sidebar-body">
+                        <div class="sidebar-section">
+                            <div class="sidebar-title">Identite</div>
+                            <div id="info-identite" class="sidebar-items"></div>
+                        </div>
+                        <div class="sidebar-section">
+                            <div class="sidebar-title">Contact</div>
+                            <div id="info-contact" class="sidebar-items"></div>
+                        </div>
+                        <div class="sidebar-section">
+                            <div class="sidebar-title">Reseaux Sociaux</div>
+                            <div id="info-reseaux" class="sidebar-items"></div>
+                        </div>
+                        <div class="sidebar-section">
+                            <div class="sidebar-title">Emploi</div>
+                            <div id="info-emploi" class="sidebar-items"></div>
+                        </div>
+                        <div class="sidebar-section">
+                            <div class="sidebar-title">Vehicule</div>
+                            <div id="info-vehicule" class="sidebar-items"></div>
+                        </div>
+                        <div class="sidebar-section">
+                            <div class="sidebar-title">Divers</div>
+                            <div id="info-divers" class="sidebar-items"></div>
+                        </div>
+                        <div class="sidebar-section">
+                            <div class="sidebar-title">Erreurs</div>
+                            <div id="info-erreurs" class="sidebar-items error-items"></div>
+                        </div>
+                    </div>
+                    <div class="sidebar-footer">
+                        <div id="progress-bar"><div id="progress-fill"></div></div>
+                        <div id="progress-text">0 / 20 infos</div>
+                    </div>
                 </div>
-                <div class="google-search-bar">
-                    <input type="text" id="google-input" placeholder="Rechercher sur Google..." autofocus>
-                    <button id="google-search-btn">&#128269;</button>
+                <div class="google-main">
+                    <div class="google-logo">
+                        <span style="color:#4285f4">G</span><span style="color:#ea4335">o</span><span style="color:#fbbc05">o</span><span style="color:#4285f4">g</span><span style="color:#34a853">l</span><span style="color:#ea4335">e</span>
+                    </div>
+                    <div class="google-search-bar">
+                        <input type="text" id="google-input" placeholder="Rechercher sur Google..." autofocus>
+                        <button id="google-search-btn">&#128269;</button>
+                    </div>
+                    <div id="google-results"></div>
+                    <div id="google-close">&#10005;</div>
                 </div>
-                <div id="google-results"></div>
-                <div id="google-close">&#10005;</div>
             </div>
         </div>
 
