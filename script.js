@@ -191,6 +191,13 @@ function processCommand(cmd) {
   <span style="color:#e95420">history</span>         - Historique commandes`,
         'ls': `Desktop/  Documents/  Downloads/  Pictures/  .ssh/
 notes.txt  contacts.csv  suspect_photo.jpg  backup.zip`,
+        'ls .ssh': 'authorized_keys  id_rsa  id_rsa.pub  known_hosts',
+        'cat .ssh/id_rsa': `<span style="color:#e95420">-----BEGIN OPENSSH PRIVATE KEY-----</span>
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAA
+AAAABnNzaC1rZXktdjEAAAAQaWRlbnRpdHkgbm90IGVzdCBhIHJlYWwg
+cHJpdmF0ZSBrZXksIGp1c3QgYSBjb250cmFjdGlvbmFsIGFydGlmYWN0
+<span style="color:#e95420">CTF{ssh_keys_can_be_leaky}</span>
+<span style="color:#e95420">-----END OPENSSH PRIVATE KEY-----</span>`,
         'pwd': '/home/osint_agent',
         'whoami': 'osint_agent',
         'id': 'uid=1001(osint_agent) gid=1001(osint_agent) groups=1001(osint_agent),27(sudo)',
@@ -268,6 +275,16 @@ Adobe Photoshop 24.0
   <span style="color:#e95420">embedded file: secret_message.txt (128 bytes)</span>
   <span style="color:#e95420">password protected: yes</span>
   Hint: the password is the camera model lowercase`,
+        'steghide extract -sf suspect_photo.jpg': `Enter passphrase: <span style="color:#e95422">canon eos r5</span>
+wrote extracted data to "secret_message.txt".
+
+<span style="color:#e95420">=== secret_message.txt ===</span>
+Félicitations agent!
+Le groupe ShadowNet opère depuis 45.33.32.156
+Leur serveur SSH utilise une clé compromis.
+Cherchez dans ~/.ssh/ du suspect.
+
+<span style="color:#e95420">OSINT{stegano_is_your_friend}</span>`,
         'cat backup.zip': '<span style="color:#e95420">⚠ Ceci est un fichier binaire. Utilisez unzip backup.zip</span>',
         'unzip backup.zip': `Archive:  backup.zip
   inflating: credentials.txt
@@ -461,6 +478,7 @@ const flags = {
     'OSINT{gps_coordinates_exposed}': { name: 'Geoloc Master', points: 150, hint: 'Examinez la photo avec exiftool' },
     'OSINT{strings_reveal_secrets}': { name: 'String Puller', points: 200, hint: 'Les chaînes cachées dans les binaires...' },
     'OSINT{z1p_files_hold_secrets}': { name: 'Archive Raider', points: 200, hint: 'Le fichier backup.zip contient des trésors' },
+    'OSINT{stegano_is_your_friend}': { name: 'Stegano Sleuth', points: 250, hint: 'steghide extract -sf suspect_photo.jpg (mot de passe: camera model)' },
     'OSINT{ssh_keys_can_be_leaky}': { name: 'Key Leaker', points: 250, hint: 'Regardez dans .ssh/...' },
 };
 
