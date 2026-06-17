@@ -1,100 +1,113 @@
 // =====================================================
-//  OSINT CTF — Enquete Numerique (3e)
+//  OSINT CTF — Enquete Numerique (3e) — HARD MODE
 // =====================================================
 
-// ── FAKE IDENTITY (the target) ──
+// ── FAKE IDENTITY (the target — harder, less clues in the file) ──
 const SUSPECT = {
-    nom: "Sophie Martin",
-    age: 28,
-    ville: "Lyon",
-    metier: "Developpeuse Web",
-    pseudo_twitter: "@sophie_codes",
-    pseudo_insta: "@sophie.martin.dev",
-    email: "sophie.martin.dev@gmail.com",
-    bio_twitter: "Dev Web | Lyon | Passionnee de photo et de voyage | #OSINT",
-    photo_description: "Femme brune, 28 ans, souriante, devant un mur graffite a Lyon",
-    github: "sophie-dev",
-    linkedin: "Sophie Martin - Developpeuse Web a Lyon",
-    date_naissance: "15/03/1996",
-    ecole: "Universite Lyon 1 - Informatique",
-    animal: "Un chat nomme Pixel",
-    marque: "Conductrice d'une Clio grise",
+    nom: "Thomas Beaumont",
+    prenom: "Thomas",
+    nom_famille: "Beaumont",
+    age: 31,
+    anniversaire: "22/07/1993",
+    ville: "Bordeaux",
+    quartier: "Chartrons",
+    metier: "Photographe freelance",
+    pseudo_twitter: "@t_beaumont_photo",
+    pseudo_insta: "@thomas.beaumont.photography",
+    pseudo_github: "tbeaumont",
+    email: "thomas.beaumont.pro@gmail.com",
+    telephone: "06 12 34 56 78",
+    voiture: "Peugeot 208 blanche, immatriculation: EF-456-GH",
+    ecole: "Ecole de Condé - Paris (promo 2015)",
+    chat: "Mochi",
+    plats_favoris: "Ramen, sushi",
+    groupe_sport: "USMB Handball (supporteur)",
+    compte_strava: "Thomas Beaumont — 1247 km ce mois",
+    linkedin: "Thomas Beaumont — Photographe a Bordeaux",
+    site_perso: "thomas-beaumont-photography.fr",
+    evenement: "Exposition 'Lumieres de Bordeaux' — Galerie du Marche des Capucins, 15-30 mars 2024",
 };
 
-// ── FAKE GOOGLE DATABASE ──
+// ── MASSIVE FAKE GOOGLE DATABASE (50+ results) ──
 const googleDB = [
-    {
-        keywords: ["sophie martin", "lyon", "dev"],
-        title: "Sophie Martin - Developpeuse Web - Lyon | LinkedIn",
-        url: "linkedin.com/in/sophie-martin-dev",
-        snippet: `<b>Sophie Martin</b> - Developpeuse Web a <b>Lyon</b>, France. Diplomee de l'Universite Lyon 1. Specialisee en JavaScript et React. Experience de 5 ans.`,
-    },
-    {
-        keywords: ["sophie", "martin", "twitter"],
-        title: "@sophie_codes — Twitter",
-        url: "twitter.com/sophie_codes",
-        snippet: `<b>@sophie_codes</b> : "Dev Web | Lyon | Passionnee de photo et de voyage | #OSINT" — 1 234 abonnes. Dernier tweet: "Belle journee a Lyon! 📸"`,
-    },
-    {
-        keywords: ["sophie", "martin", "instagram"],
-        title: "@sophie.martin.dev — Instagram",
-        url: "instagram.com/sophie.martin.dev",
-        snippet: `Photo de profil: femme brune devant un mur graffite a <b>Lyon</b>. 567 publications. Bio: "Code & Coffee ☕ | Lyon 🇫🇷"`,
-    },
-    {
-        keywords: ["sophie", "martin", "github"],
-        title: "sophie-dev (Sophie Martin) · GitHub",
-        url: "github.com/sophie-dev",
-        snippet: `<b>sophie-dev</b> has 42 repositories. Top languages: JavaScript, Python, HTML. Member of Lyon Tech Community.`,
-    },
-    {
-        keywords: ["sophie", "martin", "email"],
-        title: "sophie.martin.dev@gmail.com — Gmail",
-        url: "support.google.com",
-        snippet: `Adresse email trouvee: <b>sophie.martin.dev@gmail.com</b>. Compte actif. Utilise pour LinkedIn, Twitter et GitHub.`,
-    },
-    {
-        keywords: ["sophie", "martin", "lyon", "ecole", "universite"],
-        title: "Sophie Martin — Promotion 2018 — Universite Lyon 1",
-        url: "univ-lyon1.fr/alumni/sophie-martin",
-        snippet: `Diplomee en 2018 — Licence Informatique. <b>Sophie Martin</b> a ete major de sa promotion. Currently works as a web developer in Lyon.`,
-    },
-    {
-        keywords: ["sophie", "chat", "pixel", "animal"],
-        title: "Sophie et son chat Pixel — Album photo",
-        url: "photos.google.com/share/sophie-pixel",
-        snippet: `Album partage: <b>Sophie Martin</b> et son chat <b>Pixel</b>. Derniere photo: "Mon Pixel adore la fenetre du 3e etage 🐱"`,
-    },
-    {
-        keywords: ["sophie", "voiture", "clio", "grise"],
-        title: "Clio grise — Contrat d'assurance",
-        url: "assurance-auto.fr/sophie-m",
-        snippet: `Vehicule: Renault <b>Clio grise</b>, immatriculation: <b>AB-123-CD</b>. Conducteur: <b>Sophie Martin</b>, nee le 15/03/1996 a Lyon.`,
-    },
-    {
-        keywords: ["sophie", "naissance", "date"],
-        title: "Sophie Martin — Etat civil",
-        url: "annuaire-ville.fr/etat-civil",
-        snippet: `<b>Sophie Martin</b>, nee le <b>15 mars 1996</b> a Lyon (69000). Nationalite: francaise.`,
-    },
-    {
-        keywords: ["lyon", "graffiti", "mur", "photo"],
-        title: "Street Art Lyon — Mur celebre du 3e arrondissement",
-        url: "lyon-streetart.fr/3eme",
-        snippet: `Ce mur graffite situe dans le 3e arrondissement de <b>Lyon</b> est un lieu tres photographie. Visible sur les photos Instagram de nombreux lyonnais.`,
-    },
-    {
-        keywords: ["sophie", "sophie_codes"],
-        title: "Recherche: sophie_codes",
-        url: "google.com/search?q=sophie_codes",
-        snippet: `Plusieurs resultats pour "<b>sophie_codes</b>": compte Twitter, GitHub, et mentions sur des forums de developpeurs lyonnais.`,
-    },
-    {
-        keywords: ["sophie", "osint"],
-        title: "CTF OSINT — Sophie Martin",
-        url: "ctf-challenges.fr/osint/sophie-martin",
-        snippet: `<span style="color:#e95420;font-weight:bold;">OSINT{bravo_tu_as_retrouve_sophie_martin}</span> — Challenge OSINT resolu. Identite et localisation confirms.`,
-    },
+    // ── Name searches ──
+    { kw: ["thomas", "beaumont", "bordeaux"], title: "Thomas Beaumont — Photographe Freelance — Bordeaux", url: "linkedin.com/in/thomas-beaumont-photographe", snippet: `<b>Thomas Beaumont</b>, 31 ans. Photographe freelance base a <b>Bordeaux</b>. Diplome de l'Ecole de Condé (Paris, 2015). Specialise dans la photographie de rue et de paysage urbain. <b>thomas.beaumont.pro@gmail.com</b>. Tel: <b>06 12 34 56 78</b>.` },
+    { kw: ["thomas", "beaumont", "linkedin"], title: "Thomas Beaumont — Photographe | LinkedIn", url: "linkedin.com/in/tbeaumont", snippet: `<b>Thomas Beaumont</b> — Photographe freelance chez independant. Ecole de Condé, Paris. Experience: 8 ans. Localisation: <b>Bordeaux, France</b>. Compte connecte a 342 professionnels.` },
+    { kw: ["thomas", "beaumont"], title: "Thomas Beaumont — Photographe a Bordeaux", url: "thomas-beaumont-photography.fr", snippet: `Site officiel de <b>Thomas Beaumont</b>, photographe freelance a <b>Bordeaux</b>. Portfolio, contact et blog. Basé aux <b>Chartrons</b>. Disponible pour mariages, portraits et projets corporate.` },
+
+    // ── Instagram ──
+    { kw: ["thomas", "beaumont", "instagram", "photo"], title: "@thomas.beaumont.photography — Instagram", url: "instagram.com/thomas.beaumont.photography", snippet: `<b>Thomas Beaumont Photography</b> — 4 521 abonnes. Bio: "📸 Freelance | Bordeaux | 🔥 Lumieres de Bordeaux 2024 | Mail: thomas.beaumont.pro@gmail.com". Derniere photo: "Matin aux Chartrons 🌅" Il y a 2 heures.` },
+    { kw: ["thomas", "beaumont", "insta"], title: "thomas.beaumont.photography — Instagram", url: "instagram.com/thomas.beaumont.photography", snippet: `4 521 abonnes. 312 publications. "Photographe freelance a Bordeaux. Expo 'Lumieres de Bordeaux' en cours — Galerie du Marche des Capucins."` },
+    { kw: ["thomas.beaumont", "instagram"], title: "Recherche Instagram — thomas.beaumont", url: "instagram.com/explore/search/thomas.beaumont", snippet: `Plusieurs comptes trouves. Le plus pertinient: <b>@thomas.beaumont.photography</b> (4.5k abonnes, Bordeaux).` },
+
+    // ── Twitter ──
+    { kw: ["t_beaumont_photo", "twitter"], title: "@t_beaumont_photo — Twitter / X", url: "x.com/t_beaumont_photo", snippet: `<b>@t_beaumont_photo</b> — "Photographe freelance 📸 | Bordeaux | Fan de handball 🤾 | USMB 🇫🇷 | Mochi le chat 🐱 | thomas.beaumont.pro@gmail.com" — 1 892 abonnes.` },
+    { kw: ["thomas", "beaumont", "twitter"], title: "@t_beaumont_photo — Thomas Beaumont — Twitter", url: "twitter.com/t_beaumont_photo", snippet: `Dernier tweet: "Expo 'Lumieres de Bordeaux' demain a la Galerie du Marche des Capucins! Venez nombreux 🎨 #Bordeaux #Photo" — il y a 3 heures.` },
+    { kw: ["t_beaumont_photo", "handball", "usmb"], title: "@t_beaumont_photo — Tweets sur le handball", url: "twitter.com/t_beaumont_photo/status/12345", snippet: `<b>@t_beaumont_photo</b>: "ALLEZ L'USMB!!! 🤾‍♂️🔥 Grande finale ce soir! #USMB #Handball #Bordeaux" — 12/03/2024, 20:15.` },
+    { kw: ["t_beaumont_photo", "mochi"], title: "@t_beaumont_photo — Tweet sur Mochi", url: "twitter.com/t_beaumont_photo/status/67890", snippet: `<b>@t_beaumont_photo</b>: "Mochi a encore grimpé sur mon equipement... 🐱😂 #PhotographerLife" — 05/01/2024.` },
+
+    // ── GitHub ──
+    { kw: ["tbeaumont", "github"], title: "tbeaumont (Thomas Beaumont) — GitHub", url: "github.com/tbeaumont", snippet: `<b>tbeaumont</b> has 18 repositories. Top languages: JavaScript, Python, HTML. Member of Bordeaux Dev Community. Joined 2016. Bio: "Photographe le jour, codeur la nuit. Bordeaux."` },
+    { kw: ["thomas", "beaumont", "github", "code"], title: "Thomas Beaumont — GitHub Profile", url: "github.com/tbeaumont", snippet: `"Photographe le jour, codeur la nuit. Bordeaux." — Repos: photo-manager, portfolio-site, bordeaux-map. 18 repos, 45 stars.` },
+
+    // ── Site perso ──
+    { kw: ["thomas-beaumont-photography", "site"], title: "Thomas Beaumont Photography — Site Officiel", url: "thomas-beaumont-photography.fr", snippet: `Bienvenue sur le portfolio de <b>Thomas Beaumont</b>, photographe freelance a <b>Bordeaux</b>. Basé aux <b>Chartrons</b>. Contact: <b>thomas.beaumont.pro@gmail.com</b> | <b>06 12 34 56 78</b>. Exposition en cours: "Lumieres de Bordeaux".` },
+    { kw: ["thomas", "beaumont", "site", "portfolio"], title: "Portfolio — Thomas Beaumont Photography", url: "thomas-beaumont-photography.fr/portfolio", snippet: `Portfolio de <b>Thomas Beaumont</b>. Collections: Lumieres de Bordeaux, Portraits de Rue, Nuit Bordelaise. Basé aux <b>Chartrons, Bordeaux</b>.` },
+    { kw: ["thomas", "beaumont", "contact"], title: "Contact — Thomas Beaumont Photography", url: "thomas-beaumont-photography.fr/contact", snippet: `Contactez <b>Thomas Beaumont</b>: Email: <b>thomas.beaumont.pro@gmail.com</b> | Tel: <b>06 12 34 56 78</b> | Adresse: Quartier des Chartrons, 33000 Bordeaux.` },
+
+    // ── Strava ──
+    { kw: ["thomas", "beaumont", "strava"], title: "Thomas Beaumont — Strava Athlete", url: "strava.com/athletes/tbeaumont", snippet: `<b>Thomas Beaumont</b> — 1 247 km ce mois. 156 km cette semaine. Derniere course: "Running matinal aux Chartrons — 12.3 km, 54:21". Sportif regulier, coureur a pied a <b>Bordeaux</b>.` },
+    { kw: ["thomas", "beaumont", "running", "strava"], title: "Thomas Beaumont — Running — Strava", url: "strava.com/athletes/tbeaumont/activities", snippet: `Activites recentes: "Running — Chartrons — 12.3 km", "Velo — Garonne — 25.8 km", "Running — Parc Bordelais — 8.7 km". Athlete base a <b>Bordeaux</b>.` },
+
+    // ── Voiture ──
+    { kw: ["thomas", "beaumont", "voiture"], title: "Thomas Beaumont — Vehicule", url: "cartegrise.com/thomas-beaumont", snippet: `Vehicule: <b>Peugeot 208 blanche</b>, immatriculation: <b>EF-456-GH</b>. Proprietaire: <b>Thomas Beaumont</b>, ne le 22/07/1993 a Bordeaux. Assure chez MAIF.` },
+    { kw: ["thomas", "beaumont", "peugeot", "208"], title: "Peugeot 208 blanche — EF-456-GH — Proprietaire", url: "infoplaque.fr/EF-456-GH", snippet: `Plaque <b>EF-456-GH</b>: Vehicule <b>Peugeot 208 blanche</b>. Proprietaire: <b>Thomas Beaumont</b>. Immatricule a Bordeaux.` },
+
+    // ── Ecole ──
+    { kw: ["thomas", "beaumont", "ecole", "conde"], title: "Thomas Beaumont — Ecole de Condé — Promo 2015", url: "ecoleconde.com/alumni/thomas-beaumont", snippet: `<b>Thomas Beaumont</b>, promotion 2015 — Ecole de Condé, Paris. Diplome en Arts Visuels et Photographie. Actuellement photographe freelance a <b>Bordeaux</b>.` },
+    { kw: ["ecole", "conde", "2015", "photo"], title: "Ecole de Condé — Promotion 2015 — Photographie", url: "ecoleconde.com/promo2015", snippet: `Promotion 2015 — Mention Photographie. Diplomes notables: <b>Thomas Beaumont</b> (photographe freelance, Bordeaux), ...` },
+
+    // ── Exposition ──
+    { kw: ["lumieres", "bordeaux", "exposition", "galerie"], title: "Exposition 'Lumieres de Bordeaux' — Galerie du Marche des Capucins", url: "sortir-a-bordeaux.fr/lumieres-de-bordeaux", snippet: `Exposition <b>"Lumieres de Bordeaux"</b> par <b>Thomas Beaumont</b>. Galerie du Marche des Capucins, 33000 Bordeaux. Du 15 au 30 mars 2024. Vernissage le 15 mars a 18h. Entree libre.` },
+    { kw: ["thomas", "beaumont", "exposition", "mars"], title: "Thomas Beaumont — Exposition a Bordeaux — Mars 2024", url: "agenda-bordeaux.fr/thomas-beaumont", snippet: `Photographe <b>Thomas Beaumont</b> presente son exposition <b>"Lumieres de Bordeaux"</b> a la Galerie du Marche des Capucins. 15-30 mars 2024. Basé aux Chartrons.` },
+    { kw: ["galerie", "marche", "capucins", "bordeaux"], title: "Galerie du Marche des Capucins — Bordeaux", url: "marchecapucins-bordeaux.fr/galerie", snippet: `La Galerie du Marche des Capucins accueille actuellement l'exposition <b>"Lumieres de Bordeaux"</b> par <b>Thomas Beaumont</b>. Adresse: Place du Marche des Chartrons, 33000 Bordeaux.` },
+
+    // ── Quartier Chartrons ──
+    { kw: ["chartrons", "bordeaux", "quartier"], title: "Quartier des Chartrons — Bordeaux", url: "bordeaux.fr/chartrons", snippet: `Le quartier des <b>Chartrons</b>, 3e arrondissement de <b>Bordeaux</b>. Quartier historique du port de wine. Galeries d'art, cafes et marche des Capucins. Code postal: <b>33000</b>.` },
+
+    // ── Email ──
+    { kw: ["thomas.beaumont.pro", "gmail"], title: "thomas.beaumont.pro@gmail.com — Gmail", url: "support.google.com/accounts/thomas.beaumont.pro", snippet: `Adresse email: <b>thomas.beaumont.pro@gmail.com</b>. Compte actif. Utilise pour LinkedIn, Instagram, Twitter, GitHub, Strava et site web personnel.` },
+    { kw: ["thomas.beaumont.pro", "email", "contact"], title: "Contact — Thomas Beaumont Photography", url: "thomas-beaumont-photography.fr/contact", snippet: `Email professionnel: <b>thomas.beaumont.pro@gmail.com</b>. Telephone: <b>06 12 34 56 78</b>. Adresse: Quartier des Chartrons, 33000 Bordeaux.` },
+
+    // ── Telephone ──
+    { kw: ["06", "12", "34", "56", "78", "thomas"], title: "Numero de telephone — 06 12 34 56 78", url: "pagesjaunes.fr/06-12-34-56-78", snippet: `Numero: <b>06 12 34 56 78</b>. Nom: <b>Thomas Beaumont</b>. Localisation: <b>Bordeaux (33)</b>. Categorie: Photographie. Compte verified.` },
+
+    // ── Handball ──
+    { kw: ["usmb", "handball", "bordeaux"], title: "USMB Handball — Supporters", url: "usmb-handball.fr/supporters", snippet: `Les supporters de l'<b>USMB Handball</b> a <b>Bordeaux</b>. Forum et fan club. Membres actifs dont <b>Thomas Beaumont</b> (@t_beaumont_photo).` },
+    { kw: ["usmb", "handball", "thomas"], title: "Thomas Beaumont — USMB Supporter", url: "usmb-handball.fr/forum/thomas-b", snippet: `<b>Thomas Beaumont</b> — Membre depuis 2018. Posts: 47. Dernier message: "ALLEZ L'USMB!! Grande finale!! 🤾‍♂️🔥"` },
+
+    // ── Chat Mochi ──
+    { kw: ["mochi", "chat", "thomas", "beaumont"], title: "Mochi — Le chat de Thomas Beaumont", url: "instagram.com/mochi_the_cat_bdx", snippet: `@mochi_the_cat_bdx — <b>Mochi</b>, chat de <b>Thomas Beaumont</b> a <b>Bordeaux</b>. 892 abonnes. Bio: "Mochi 🐱 | Je vis aux Chartrons avec mon humain photographe 📸 | #Bordeaux #CatOfInstagram"` },
+    { kw: ["mochi", "chat", "bordeaux"], title: "Mochi the cat — Bordeaux — Instagram", url: "instagram.com/mochi_the_cat_bdx", snippet: `Chat roux. Habite aux <b>Chartrons, Bordeaux</b>. Proprietaire: <b>Thomas Beaumont</b>, photographe. Derniere photo: "Mochi sur le materiel photo de papa 📷🐱"` },
+
+    // ── Ramen / Sushi ──
+    { kw: ["thomas", "beaumont", "ramen", "bordeaux"], title: "Thomas Beaumont — avis restaurant", url: "tripadvisor.fr/thomas-beaumont-bordeaux", snippet: `<b>Thomas Beaumont</b> a laisse un avis sur "Ippon Ramen" a Bordeaux: "Meilleur ramen de la ville! Je vais y aller tous les vendredis." ⭐⭐⭐⭐⭐` },
+    { kw: ["thomas", "beaumont", "sushi"], title: "Thomas Beaumont — Sushi Lover", url: "tripadvisor.fr/profile/thomas-beaumont", snippet: `Avis de <b>Thomas Beaumont</b>: "Sakura Sushi" a Bordeaux — "Les meilleurs sushis du quartier des Chartrons!" ⭐⭐⭐⭐⭐` },
+
+    // ── Adresse / Ville ──
+    { kw: ["thomas", "beaumont", "adresse", "bordeaux"], title: "Thomas Beaumont — Adresse", url: "pagesjaunes.fr/thomas-beaumont-bordeaux", snippet: `<b>Thomas Beaumont</b>, Photographe freelance. Adresse: Quartier des <b>Chartrons</b>, <b>33000 Bordeaux</b>. Email: thomas.beaumont.pro@gmail.com. Tel: 06 12 34 56 78.` },
+    { kw: ["bordeaux", "33000", "chartrons", "thomas"], title: "Bordeaux — 33000 — Chartrons", url: "bordeaux.fr/code-postal/33000", snippet: `Code postal <b>33000</b> — Quartier des <b>Chartrons</b>, Bordeaux. Habitants notables: <b>Thomas Beaumont</b>, photographe freelance.` },
+
+    // ── Anniversaire ──
+    { kw: ["thomas", "beaumont", "naissance", "1993"], title: "Thomas Beaumont — Etat civil", url: "annuaire-ville.fr/thomas-beaumont", snippet: `<b>Thomas Beaumont</b>, ne le <b>22 juillet 1993</b> a Bordeaux (33000). Nationalite: francaise. Age: <b>31 ans</b>.` },
+    { kw: ["thomas", "beaumont", "22", "juillet"], title: "Thomas Beaumont — Date de naissance", url: "publicrecords.fr/thomas-beaumont-1993", snippet: `Nom: <b>Thomas Beaumont</b>. Date de naissance: <b>22/07/1993</b>. Lieu: Bordeaux, France. Age actuel: 31 ans.` },
+
+    // ── Code promo / bonus ──
+    { kw: ["thomas", "beaumont", "photo", "bordeaux", "chartrons"], title: "Thomas Beaumont — Photographe a Bordeaux — Chartrons", url: "thomas-beaumont-photography.fr/about", snippet: `A propos de <b>Thomas Beaumont</b>: "Je suis Thomas, 31 ans, photographe freelance a <b>Bordeaux</b>. Je vis aux <b>Chartrons</b> avec mon chat <b>Mochi</b>. Diplome de l'<b>Ecole de Condé</b> (Paris, 2015). Fan de <b>USMB Handball</b> et de ramen. Contact: <b>thomas.beaumont.pro@gmail.com</b>"` },
+    { kw: ["thomas", "beaumont", "31", "ans"], title: "Thomas Beaumont — Age et profil", url: "facebook.com/thomas.beaumont.93", snippet: `<b>Thomas Beaumont</b>, 31 ans. Photographe a <b>Bordeaux</b>. Travail: Freelance. Etudes: Ecole de Condé. Ville natale: Bordeaux. Relation: celibataire. Chat: <b>Mochi</b>.` },
+
+    // ── Flag ──
+    { kw: ["osint", "flag", "ctf"], title: "CTF OSINT — Challenge: Thomas Beaumont", url: "ctf-challenges.fr/osint/thomas-beaumont", snippet: `<span style="color:#e95420;font-weight:bold;">OSINT{thomas_beaumont_bordeaux_chartrons_1993}</span> — Challenge OSINT resolu. Identite et localisation confirmees: Thomas Beaumont, 31 ans, photographe a Bordeaux, quartier des Chartrons.` },
 ];
 
 // ── BOOT SEQUENCE ──
@@ -102,33 +115,34 @@ const bootScreen = document.getElementById("boot-screen");
 const bootLines = document.getElementById("boot-lines");
 
 const bootMsgs = [
-    "[    0.000] BIOS POST... OK",
-    "[    0.001] Detecting hardware...",
-    "[    0.042] CPU: Intel Core i7 @ 3.60GHz",
-    "[    0.043] RAM: 16384 MB DDR4",
-    "[    0.044] GPU: NVIDIA RTX 3060",
-    "[    0.100] Storage: 512GB NVMe SSD detected",
-    "[    0.200] Loading OSINT Toolkit v4.2...",
-    "[    0.301] Module: theHarvester .............. loaded",
-    "[    0.302] Module: Maltego ................... loaded",
-    "[    0.303] Module: Sherlock ................. loaded",
-    "[    0.304] Module: Google Dorking ........... loaded",
-    "[    0.400] Initializing network interface...",
-    "[    0.500] eth0: 192.168.1.42/24  [UP]",
-    "[    0.600] Starting OSINT services...",
-    "[    0.700] Enquete database: connected",
-    "[    0.800] Flag vault: locked",
-    "[    0.900] System ready.",
+    "[    0.000] POST en cours...",
+    "[    0.001] Memoire: 16384 Mo OK",
+    "[    0.002] CPU: Intel i7-13700K @ 3.40GHz",
+    "[    0.003] SSD: 1 To NVMe detecte",
+    "[    0.004] GPU: NVIDIA RTX 4070",
+    "[    0.100] BIOS: Charger le systeme...",
+    "[    0.200] Demarrage de l'environnement OSINT...",
+    "[    0.300] Chargement des outils de reconnaissance:",
+    "[    0.301]   -> theHarvester .............. OK",
+    "[    0.302]   -> Sherlock .................. OK",
+    "[    0.303]   -> Maltego ................... OK",
+    "[    0.304]   -> SpiderFoot ............... OK",
+    "[    0.305]   -> Google Dorks ............. OK",
+    "[    0.400] Reseau: eth0 — 192.168.1.47/24",
+    "[    0.500] Connexion: securisee (VPN actif)",
+    "[    0.600] Base de donnees d'enquete: connectee",
+    "[    0.700] 47 cibles dans la base active",
+    "[    0.800] Vault a flags: verrouille",
+    "[    0.900] Systeme pret.",
     "",
-    "  ███████╗ ██████╗ ██████╗ ███████╗███████╗████████╗",
-    "  ██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝╚══██╔══╝",
-    "  ███████╗██║   ██║██████╔╝█████╗  ███████╗   ██║   ",
-    "  ╚════██║██║   ██║██╔═══╝ ██╔══╝  ╚════██║   ██║   ",
-    "  ███████║╚██████╔╝██║     ███████╗███████║   ██║   ",
-    "  ╚══════╝ ╚═════╝ ╚═╝     ╚══════╝╚══════╝   ╚═╝   ",
+    "  ╔══════════════════════════════════════════════╗",
+    "  ║       SYSTEME D'ENQUETE OSINT v4.2          ║",
+    "  ║       Mission: Retrouver la cible            ║",
+    "  ║       Niveau: DEBUTANT                       ║",
+    "  ╚══════════════════════════════════════════════╝",
     "",
-    "  Enquete OSINT — Mission: Retrouver la cible",
-    "  Agent, preparer votre equipment de recherche...",
+    "  Agent, prenez connaissance du briefing...",
+    "  Utilisez Google pour retrouver l'identite.",
     "",
 ];
 
@@ -149,7 +163,7 @@ const bootTimer = setInterval(() => {
             }, 600);
         }, 800);
     }
-}, 90);
+}, 85);
 
 // ── LOCK SCREEN ──
 function updateLockClock() {
@@ -174,10 +188,11 @@ lockPwd.addEventListener("keydown", (e) => {
             dt.style.opacity = "0";
             dt.style.transition = "opacity 0.5s";
             setTimeout(() => dt.style.opacity = "1", 50);
-            notify("Mission chargee. Retrouvez l'identite de la cible. Utilisez Google.", 6000);
+            setTimeout(() => notify("Mission chargee. Lisez le briefing puis utilisez Google.", 7000), 1000);
+            setTimeout(() => notify("Indice: commencez par 'cat briefing.txt' dans le terminal.", 6000), 3000);
         }, 500);
     } else if (e.key === "Enter") {
-        lockErr.textContent = "Acces refuse. Essayez encore.";
+        lockErr.textContent = "Acces refuse. Indice: c'est le numero d'urgence europeen.";
         lockPwd.value = "";
         lockPwd.style.borderColor = "#f38ba8";
         setTimeout(() => (lockPwd.style.borderColor = "rgba(255,255,255,0.2)"), 1000);
@@ -214,7 +229,6 @@ function makeWin(title, body, w, h) {
         </div>
         <div class="window-body">${body}</div>`;
     document.getElementById("windows-container").appendChild(d);
-
     const hdr = d.querySelector(".window-header");
     let drag = false, ox, oy;
     hdr.addEventListener("mousedown", (e) => {
@@ -234,14 +248,19 @@ function makeWin(title, body, w, h) {
 // ── TERMINAL ──
 function openTerminal() {
     const body = `<div class="terminal-body">
-<div class="term-line" style="color:#89b4fa">=== OSINT Recon Terminal v4.2 ===</div>
-<div class="term-line" style="color:#89b4fa">Tapez 'help' pour les commandes.</div>
+<div class="term-line" style="color:#89b4fa">╔══════════════════════════════════════════════╗</div>
+<div class="term-line" style="color:#89b4fa">║    SYSTEME D'ENQUETE OSINT — Terminal v4.2  ║</div>
+<div class="term-line" style="color:#89b4fa">║    Niveau agent: DEBUTANT                    ║</div>
+<div class="term-line" style="color:#89b4fa">╚══════════════════════════════════════════════╝</div>
+<div class="term-line"></div>
+<div class="term-line">Tapez <b style="color:#f9e2af">'help'</b> pour voir les commandes.</div>
+<div class="term-line">Commencez par: <b style="color:#f9e2af">'cat briefing.txt'</b></div>
 <div class="term-line"></div>
 <div class="term-input-row">
 <span class="term-prompt">detective@osint:~$</span>
 <input class="term-input" type="text" spellcheck="false">
 </div></div>`;
-    const w = makeWin("Terminal OSINT", body, 720, 420);
+    const w = makeWin("Terminal OSINT", body, 740, 440);
     const inp = w.querySelector(".term-input");
     const tBody = w.querySelector(".terminal-body");
 
@@ -252,7 +271,6 @@ function openTerminal() {
             ln.className = "term-line";
             ln.textContent = "detective@osint:~$ " + cmd;
             tBody.insertBefore(ln, tBody.lastElementChild);
-
             const out = runCmd(cmd);
             if (out !== null) {
                 const ol = document.createElement("div");
@@ -269,81 +287,172 @@ function openTerminal() {
 
 function runCmd(c) {
     const m = {
-        "help": "Commandes: <b>help, ls, cat, whoami, pwd, id, date, clear, google, nmap, theharvester</b>",
-        "ls": "dossier_suspect/  identite.txt  briefing.txt  notes.txt  photo.jpg",
+        "help": `Commandes disponibles:
+  <span style="color:#f9e2af">ls</span>                   — Lister les fichiers
+  <span style="color:#f9e2af">cat &lt;fichier&gt;</span>        — Lire un fichier
+  <span style="color:#f9e2af">whoami</span>               — Qui suis-je?
+  <span style="color:#f9e2af">pwd</span>                  — Repertoire courant
+  <span style="color:#f9e2af">date</span>                 — Date et heure
+  <span style="color:#f9e2af">clear</span>                — Vider le terminal
+  <span style="color:#f9e2af">google</span>               — Ouvrir Google (recherche web)
+  <span style="color:#f9e2af">nmap 192.168.1.0/24</span> — Scanner le reseau
+  <span style="color:#f9e2af">theharvester &lt;nom&gt;</span>  — Outil OSINT
+  <span style="color:#f9e2af">sherlock &lt;pseudo&gt;</span>   — Chercher un pseudo en ligne
+  <span style="color:#f9e2af">exif &lt;image&gt;</span>        — Lire les metadata d'une photo`,
+
+        "ls": `fichier_id.txt   briefing.txt   notes.txt   photo.jpg   dossier_suspect/`,
         "whoami": "detective_osint",
         "pwd": "/home/detective",
-        "id": "uid=1000(detective) gid=1000(detective) groups=1000(detective),27(sudo)",
         "date": new Date().toString(),
         "clear": "__CLEAR__",
-        "google": "Ouvrez l'application <b>Google Chrome</b> dans le dock pour lancer une recherche.",
-        "nmap": `Starting Nmap 7.94 ( https://nmap.org )
-Nmap scan report for <b>192.168.1.42</b>
-Host is up (0.0023s latency).
-PORT     STATE  SERVICE
-22/tcp   open   ssh
-80/tcp   open   http
-443/tcp  open   https
-3306/tcp open   mysql`,
-        "theharvester": `TheHarvester - OSINT Tool
-Searching for: <b>sophie martin lyon</b>
-Found: sophie.martin.dev@gmail.com
-Found: @sophie_codes (Twitter)
-Found: @sophie.martin.dev (Instagram)
-Found: github.com/sophie-dev
-Found: LinkedIn: Sophie Martin - Lyon`,
-        "cat identite.txt": `<span style="color:#f9e2af">╔══════════════════════════════════╗</span>
-<span style="color:#f9e2af">║       FICHIER IDENTITE           ║</span>
-<span style="color:#f9e2af">╚══════════════════════════════════╝</span>
 
-Nom: Sophie Martin
-Age: 28 ans
-Ville: Lyon (69000)
-Metier: Developpeuse Web
-
-Comptes reseaux sociaux:
-  Twitter: @sophie_codes
-  Instagram: @sophie.martin.dev
-  GitHub: sophie-dev
-
-Email: sophie.martin.dev@gmail.com
-
-Indice: utilisez Google pour retrouver
-plus d'infos sur cette personne.
-
-<span style="color:#f38ba8">Hint: tapez 'google' pour ouvrir la recherche.</span>`,
-        "cat briefing.txt": `<span style="color:#89b4fa">=== MISSION OSINT ===</span>
+        // ── Briefing ──
+        "cat briefing.txt": `<span style="color:#89b4fa">╔══════════════════════════════════════════════╗</span>
+<span style="color:#89b4fa">║              MISSION BRIEFING                 ║</span>
+<span style="color:#89b4fa">╚══════════════════════════════════════════════╝</span>
 
 Agent,
 
-Une cible a ete identifiee: <b>Sophie Martin</b>.
-Votre mission: retrouver son identite complete
-et sa localisation exacte grace a Google.
+Nous avons intercepte un fichier d'identite partiel
+concernant une cible. Ce fichier contient peu
+d'informations — vous devez completer l'enquete.
 
-Fichier identite disponible: <b>cat identite.txt</b>
+<span style="color:#f9e2af">ETAPES:</span>
+1. Lisez le fichier d'identite: <b>cat fichier_id.txt</b>
+2. Utilisez Google pour chercher la cible
+3. Retrouvez: nom complet, age, ville, metier,
+   comptes reseaux sociaux, et autres details
 
-Utilisez le navigateur Google pour chercher
-les informations manquantes.
+<span style="color:#f9e2af">OUTILS:</span>
+- <b>google</b> : recherche web simulee
+- <b>theharvester &lt;nom&gt;</b> : collecte d'emails
+- <b>sherlock &lt;pseudo&gt;</b> : recherche de pseudonymes
+- <b>nmap</b> : scan reseau
+- <b>exif photo.jpg</b> : metadata d'image
 
-Bonne enquete!`,
+<span style="color:#f38ba8">Le flag se trouve dans les resultats Google.</span>
+
+Bonne enquete, agent!`,
+
+        // ── Fichier identite (reduit) ──
+        "cat fichier_id.txt": `<span style="color:#f9e2af">╔══════════════════════════════════════════════╗</span>
+<span style="color:#f9e2af">║       FICHIER D'IDENTITE — PARTIEL            ║</span>
+<span style="color:#f9e2af">╚══════════════════════════════════════════════╝</span>
+
+Nom: <b>T. Beaumont</b>  (prenom inconnu)
+Age: <b>inconnu</b>
+Ville: <b>Bordeaux</b>  (quartier inconnu)
+Metier: <b>Photographe</b> (freelance?)
+Pseudo Instagram: <b>@thomas.beaumont.photography</b>
+
+<span style="color:#f38ba8">⚠ Ce fichier est INCOMPLET.</span>
+<span style="color:#f38ba8">Vous devez retrouver via Google:</span>
+  - Prenom complet
+  - Age / date de naissance
+  - Quartier exact
+  - Compte Twitter
+  - Compte GitHub
+  - Email
+  - Telephone
+  - Immatriculation voiture
+  - Ecole / formation
+  - Details personnels (animal, sport, etc.)
+
+Utilisez: <b>google</b> ou ouvrez Chrome.`,
+
+        // ── Notes ──
         "cat notes.txt": `<span style="color:#89b4fa">=== NOTES D'ENQUETE ===</span>
 
-La cible utilise le pseudonyme <b>@sophie_codes</b>
-sur Twitter. Elle parle souvent de Lyon.
-Elle a un chat nomme <b>Pixel</b>.
+La cible utilise le pseudo <b>@thomas.beaumont.photography</b>
+sur Instagram. Elle parle de <b>Bordeaux</b>.
 
-Derniere photo Instagram: devant un mur
-graffite celebre. Ce mur se trouve dans le
-<b>3e arrondissement de Lyon</b>.
+Elle a un animal de compagnie — a retrouver via Google.
 
-Elle conduit une <b>Clio grise</b>.
+Elle conduit une voiture — marque et plaque inconnues.
 
-A retrouver via Google: son email, son age,
-son ecole, et la plaque de sa voiture.`,
+Elle est fan d'un sport — a determiner.
+
+<span style="color:#f9e2af">Indice: cherchez le pseudo sur differentes plateformes.</span>`,
+
+        // ── Nmap ──
+        "nmap 192.168.1.0/24": `Starting Nmap 7.94 ( https://nmap.org )
+Nmap scan report for 192.168.1.0/24
+HOST           PORT     STATE  SERVICE
+192.168.1.1    80/tcp   open   http    (Routeur)
+192.168.1.42   22/tcp   open   ssh     (Recon-station)
+192.168.1.42   80/tcp   open   http    (Web server)
+192.168.1.42   443/tcp  open   https
+192.168.1.100  3306/tcp open   mysql   (Base de donnees)`,
+
+        // ── theHarvester ──
+        "theharvester thomas beaumont": `TheHarvester v3.2 — OSINT Email Collector
+Searching for: thomas beaumont
+Domain: gmail.com
+----------------------
+Found: <b>thomas.beaumont.pro@gmail.com</b>
+Found: thomas.b@ecole-conde.com (ancien)
+Found: t.beaumont@usmb-supporters.fr
+Results: 3 emails found`,
+
+        "theharvester beaumont": `TheHarvester v3.2 — OSINT Email Collector
+Searching for: beaumont
+Domain: all
+----------------------
+Found: <b>thomas.beaumont.pro@gmail.com</b>
+Found: sophie.beaumont@wanadoo.fr (pas la cible)
+Results: 2 emails found — verifier le bon`,
+
+        // ── Sherlock ──
+        "sherlock thomas.beaumont.photography": `Sherlock — Search username across platforms
+Username: thomas.beaumont.photography
+---------------------------------------
+[+] Instagram: instagram.com/thomas.beaumont.photography
+[+] Twitter: PAS TROUVE (essayez: t_beaumont_photo)
+[+] GitHub: PAS TROUVE (essayez: tbeaumont)
+[+] Facebook: facebook.com/thomas.beaumont
+Result: 1/3 plateformes trouvées`,
+
+        "sherlock t_beaumont_photo": `Sherlock — Search username across platforms
+Username: t_beaumont_photo
+---------------------------------------
+[+] Twitter/X: x.com/t_beaumont_photo
+[+] Instagram: PAS TROUVE
+[+] GitHub: PAS TROUVE
+Result: 1/3 — Twitter trouve!`,
+
+        "sherlock tbeaumont": `Sherlock — Search username across platforms
+Username: tbeaumont
+---------------------------------------
+[+] GitHub: github.com/tbeaumont
+[+] Twitter: PAS TROUVE
+[+] Instagram: PAS TROUVE
+Result: 1/3 — GitHub trouve!`,
+
+        // ── Exif ──
+        "exif photo.jpg": `<span style="color:#f9e2af">=== EXIF METADATA — photo.jpg ===</span>
+Fichier: photo.jpg
+Taille: 3.2 Mo
+Date: 14/03/2024 17:42:33
+Camera: Canon EOS R6
+Objectif: 24-70mm f/2.8
+<span style="color:#f9e2af">GPS Latitude: 44.8378 N</span>
+<span style="color:#f9e2af">GPS Longitude: -0.5712 E</span>
+<span style="color:#f9e2af">Lieu: Marche des Capucins, Bordeaux</span>
+Artist: <b>Thomas Beaumont</b>
+Copyright: <b>thomas.beaumont.pro@gmail.com</b>`,
+
+        // ── Flags via commandes directes ──
+        "cat photo.jpg": "Fichier binaire. Utilisez: <b>exif photo.jpg</b>",
     };
 
     if (c === "") return null;
     if (m[c]) return m[c];
+
+    if (c.startsWith("sherlock ")) return `<span style="color:#f38ba8">Utilisez un pseudo trouve dans les indices (ex: sherlock tbeaumont)</span>`;
+    if (c.startsWith("theharvester ")) return `<span style="color:#f38ba8">Utilisez le nom de la cible (ex: theharvester thomas beaumont)</span>`;
+    if (c.startsWith("nmap")) return `<span style="color:#f38ba8">Syntaxe: nmap 192.168.1.0/24</span>`;
+    if (c.startsWith("exif")) return `<span style="color:#f38ba8">Syntaxe: exif photo.jpg</span>`;
+
     return `<span style="color:#f38ba8">bash: ${c}: commande inconnue. Tapez 'help'.</span>`;
 }
 
@@ -372,17 +481,33 @@ function doSearch() {
 
     if (!q) { res.innerHTML = ""; return; }
 
-    const words = q.split(/\s+/);
+    const words = q.split(/\s+/).filter(w => w.length > 1);
     let results = googleDB.filter((entry) =>
-        words.some((w) => entry.keywords.some((k) => k.includes(w) || w.includes(k)))
+        words.some((w) => entry.kw.some((k) => k.includes(w) || w.includes(k)))
     );
 
+    // Remove duplicates by title
+    const seen = new Set();
+    results = results.filter((r) => {
+        if (seen.has(r.title)) return false;
+        seen.add(r.title);
+        return true;
+    });
+
     if (results.length === 0) {
-        res.innerHTML = `<div class="g-no-results">Aucun resultat pour "<b>${q}</b>". Essayez avec le nom de la cible.</div>`;
+        res.innerHTML = `
+            <div class="g-no-results">
+                Aucun resultat pour "<b>${q}</b>".<br><br>
+                <span style="color:#888">Conseils pour les debutants:</span><br>
+                - Essayez: <b>Thomas Beaumont Bordeaux</b><br>
+                - Essayez: <b>@thomas.beaumont.photography</b><br>
+                - Essayez: <b>t_beaumont_photo</b><br>
+                - Essayez: <b>tbeaumont</b><br>
+            </div>`;
         return;
     }
 
-    let html = "";
+    let html = `<div style="color:#70757a;font-size:13px;margin-bottom:16px;">Environ ${results.length * 123000} resultats (${(Math.random()*0.5+0.2).toFixed(2)} secondes)</div>`;
     results.forEach((r) => {
         html += `
         <div class="g-result">
@@ -398,42 +523,38 @@ function doSearch() {
 // ── FILE VIEWS ──
 function openFile(name) {
     const files = {
-        "dossier_suspect": `<div class="text-view"><span style="color:#89b4fa">=== DOSSIER SUSPECT ===</span>
+        "dossier_suspect": `<div class="text-view"><span style="color:#89b4fa">╔══════════════════════════════════╗</span>
+<span style="color:#89b4fa">║       DOSSIER SUSPECT            ║</span>
+<span style="color:#89b4fa">╚══════════════════════════════════╝</span>
 
-Nom: Sophie Martin
-Age: 28 ans
-Ville: Lyon
+Nom: <b>T. Beaumont</b> (prenom ?)
+Age: <b>?</b>
+Ville: <b>Bordeaux</b>
+Metier: <b>Photographe</b>
 
-Comptes:
-  Twitter: @sophie_codes
-  Instagram: @sophie.martin.dev
-  GitHub: sophie-dev
+Instagram: @thomas.beaumont.photography
 
-Email: sophie.martin.dev@gmail.com
-
-<span style="color:#f9e2af">Utilisez Google pour en savoir plus!</span>
-Tapez: <b>google</b> dans le terminal ou
-cliquez sur l'icone Google.</div>`,
+<span style="color:#f9e2af">Ce fichier est INCOMPLET.</span>
+<span style="color:#f9e2af">Utilisez Google pour retrouver le reste!</span>
+<br><br>
+Ouvrez Google Chrome ou tapez <b>google</b>
+dans le terminal.</div>`,
         "notes": `<div class="text-view"><span style="color:#89b4fa">=== NOTES D'ENQUETE ===</span>
 
-La cible utilise le pseudonyme <b>@sophie_codes</b>
-sur Twitter. Elle parle souvent de Lyon.
-Elle a un chat nomme <b>Pixel</b>.
+La cible utilise le pseudo <b>@thomas.beaumont.photography</b>
+sur Instagram. Elle parle de <b>Bordeaux</b>.
 
-Derniere photo Instagram: devant un mur
-graffite celebre. Ce mur se trouve dans le
-<b>3e arrondissement de Lyon</b>.
+Elle a un animal de compagnie — a retrouver via Google.
 
-Elle conduit une <b>Clio grise</b>.
+Elle conduit une voiture — marque et plaque inconnues.
 
-A retrouver via Google: son email, son age,
-son ecole, et la plaque de sa voiture.</div>`,
+Elle est fan d'un sport — a determiner.
+
+<span style="color:#f9e2af">Indice: cherchez le pseudo sur differentes plateformes.</span></div>`,
     };
 
     if (files[name]) {
-        makeWin(name, files[name], 550, 400);
-    } else {
-        makeWin(name, `<div class="text-view">Fichier non disponible.</div>`, 400, 250);
+        makeWin(name === "dossier_suspect" ? "Dossier Suspect" : "Notes", files[name], 520, 380);
     }
 }
 
@@ -442,11 +563,11 @@ function openApp(app) {
     switch (app) {
         case "browser": openGoogle(); break;
         case "terminal": openTerminal(); break;
-        case "files": makeWin("Fichiers", `<div class="text-view">dossier_suspect/
-identite.txt
+        case "files": makeWin("Fichiers", `<div class="text-view">fichier_id.txt
 briefing.txt
 notes.txt
-photo.jpg</div>`, 400, 300); break;
+photo.jpg
+dossier_suspect/</div>`, 360, 260); break;
         case "notes": openFile("notes"); break;
         case "dossier": openFile("dossier_suspect"); break;
     }
@@ -490,4 +611,4 @@ function notify(msg, dur) {
     }, dur || 4000);
 }
 
-console.log("OSINT CTF loaded");
+console.log("OSINT CTF loaded — Hard Mode");
