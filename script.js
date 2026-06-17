@@ -271,6 +271,80 @@ activitiesOverlay.addEventListener('keydown', (e) => {
         activitiesOverlay.style.display = 'none';
     }
 });
+
+function showNotification(msg, duration = 4000) {
+    const container = document.getElementById('notifications');
+    const notif = document.createElement('div');
+    notif.className = 'notification';
+    notif.textContent = msg;
+    container.appendChild(notif);
+    setTimeout(() => {
+        notif.style.transition = 'opacity 0.3s';
+        notif.style.opacity = '0';
+        setTimeout(() => notif.remove(), 300);
+    }, duration);
+}
+
+setTimeout(() => showNotification('Bienvenue dans le CTF! Trouvez les flags cachés dans le système.'), 2000);
+
+const flags = {
+    'CTF{welcome_to_the_ubuntu_ctf_2024}': { name: 'Welcome Flag', points: 50 },
+    'CTF{hidden_files_are_fun}': { name: 'Hidden Files', points: 100 },
+    'CTF{ssh_keys_can_be_leaky}': { name: 'SSH Leak', points: 150 },
+};
+
+let score = 0;
+const solved = [];
+
+document.getElementById('flag-fab').addEventListener('click', () => {
+    const panel = document.getElementById('flag-panel');
+    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+});
+
+document.getElementById('flag-panel-close').addEventListener('click', () => {
+    document.getElementById('flag-panel').style.display = 'none';
+});
+
+document.getElementById('flag-submit').addEventListener('click', submitFlag);
+document.getElementById('flag-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') submitFlag();
+});
+
+function submitFlag() {
+    const input = document.getElementById('flag-input');
+    const result = document.getElementById('flag-result');
+    const flag = input.value.trim();
+
+    if (flags[flag] && !solved.includes(flag)) {
+        score += flags[flag].points;
+        solved.push(flag);
+        result.innerHTML = `<span style="color:#4e9a06">&#10003; Correct! +${flags[flag].points} pts</span>`;
+        showNotification(`Flag trouvé: ${flags[flag].name} (+${flags[flag].points} pts)`);
+        updateScoreboard();
+        input.value = '';
+    } else if (solved.includes(flag)) {
+        result.innerHTML = '<span style="color:#f1c40f">Déjà trouvé!</span>';
+    } else {
+        result.innerHTML = '<span style="color:#e74c3c">Flag incorrect. Essayez encore...</span>';
+        input.style.borderColor = '#e74c3c';
+        setTimeout(() => { input.style.borderColor = '#555'; }, 1000);
+    }
+}
+
+function updateScoreboard() {
+    const list = document.getElementById('scoreboard-list');
+    list.innerHTML = '';
+    solved.forEach(flag => {
+        const entry = document.createElement('div');
+        entry.className = 'scoreboard-entry';
+        entry.innerHTML = `<span class="challenge-name">${flags[flag].name}</span><span>${flags[flag].points} pts</span>`;
+        list.appendChild(entry);
+    });
+    const total = document.createElement('div');
+    total.className = 'scoreboard-entry';
+    total.innerHTML = `<strong>Total</strong><strong>${score} pts</strong>`;
+    list.appendChild(total);
+}
     });
 });
 

@@ -526,3 +526,166 @@ body {
     color: white;
     font-size: 13px;
 }
+
+#notifications {
+    position: fixed;
+    top: 36px;
+    right: 10px;
+    z-index: 1500;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.notification {
+    background: #3d3d3d;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    font-size: 13px;
+    animation: slideIn 0.3s ease-out;
+    max-width: 300px;
+    border-left: 4px solid #e95420;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+#flag-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #e95420;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(233, 84, 32, 0.5);
+    z-index: 800;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#flag-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 24px rgba(233, 84, 32, 0.7);
+}
+
+#flag-panel {
+    position: fixed;
+    bottom: 85px;
+    right: 20px;
+    width: 320px;
+    background: #2d2d2d;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    z-index: 801;
+    overflow: hidden;
+}
+
+.flag-panel-header {
+    background: #e95420;
+    color: white;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#flag-panel-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+#flag-panel-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.flag-panel-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#flag-input {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 2px solid #555;
+    background: #1e1e1e;
+    color: #4e9a06;
+    font-family: monospace;
+    font-size: 14px;
+    outline: none;
+}
+
+#flag-input:focus {
+    border-color: #e95420;
+}
+
+#flag-submit {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #e95420;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#flag-submit:hover {
+    background: #d14418;
+}
+
+#flag-result {
+    font-size: 13px;
+    min-height: 20px;
+    text-align: center;
+}
+
+#flag-scoreboard {
+    border-top: 1px solid #444;
+    padding: 12px 16px;
+}
+
+.scoreboard-title {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#scoreboard-list {
+    font-size: 13px;
+    color: #ccc;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.scoreboard-entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid #444;
+}
+
+.scoreboard-entry .challenge-name {
+    color: #4e9a06;
+}
