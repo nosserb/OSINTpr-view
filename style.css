@@ -29,8 +29,7 @@ body {
     color: #4e9a06;
     white-space: pre;
     line-height: 1.5;
-    opacity: 0;
-    transition: opacity 0.3s;
+    opacity: 1;
 }
 
 /* ── Lock Screen ── */
@@ -552,6 +551,19 @@ body {
     padding: 8px 0;
 }
 
+.sidebar-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-body::-webkit-scrollbar-thumb {
+    background: #585b70;
+    border-radius: 3px;
+}
+
 .sidebar-section {
     padding: 4px 16px;
 }
@@ -583,11 +595,6 @@ body {
     background: rgba(243,139,168,0.1);
     color: #f38ba8;
     text-decoration: line-through;
-}
-
-.sidebar-item.pending {
-    color: #585b70;
-    font-style: italic;
 }
 
 @keyframes itemIn {
@@ -631,6 +638,7 @@ body {
     padding-top: 12vh;
     position: relative;
     background: white;
+    overflow-y: auto;
 }
 
 .google-logo {
@@ -638,6 +646,7 @@ body {
     font-weight: bold;
     margin-bottom: 30px;
     letter-spacing: -2px;
+    flex-shrink: 0;
 }
 
 .google-search-bar {
@@ -651,6 +660,7 @@ body {
     height: 50px;
     box-shadow: 0 1px 6px rgba(32,33,36,0.18);
     transition: box-shadow 0.2s;
+    flex-shrink: 0;
 }
 
 .google-search-bar:focus-within {
@@ -684,6 +694,7 @@ body {
     cursor: pointer;
     padding: 6px 12px;
     border-radius: 50%;
+    z-index: 10;
 }
 
 #google-close:hover {
@@ -695,10 +706,19 @@ body {
     width: 620px;
     max-width: 90vw;
     margin-top: 24px;
+    flex-shrink: 0;
+    padding-bottom: 40px;
 }
 
 .g-result {
     margin-bottom: 24px;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background 0.15s;
+}
+
+.g-result:hover {
+    background: #f8f9fa;
 }
 
 .g-result-url {
@@ -721,7 +741,7 @@ body {
 .g-result-snippet {
     color: #4d5156;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .g-no-results {
@@ -729,14 +749,15 @@ body {
     font-size: 14px;
     padding: 20px 0;
     border-top: 1px solid #ebebeb;
+    line-height: 1.8;
 }
 
 /* ── Clickable words ── */
 .osint-word {
     cursor: pointer;
-    padding: 1px 3px;
+    padding: 1px 4px;
     border-radius: 3px;
-    border-bottom: 1px dashed #4285f4;
+    border-bottom: 2px dashed #4285f4;
     color: #1a0dab;
     transition: all 0.15s;
     font-weight: 500;
@@ -750,14 +771,14 @@ body {
 .osint-word.clicked-correct {
     background: #a6e3a1;
     color: #1e1e2e;
-    border-bottom: 1px solid #a6e3a1;
+    border-bottom: 2px solid #a6e3a1;
     cursor: default;
 }
 
 .osint-word.clicked-wrong {
     background: #f38ba8;
     color: #1e1e2e;
-    border-bottom: 1px solid #f38ba8;
+    border-bottom: 2px solid #f38ba8;
     cursor: default;
 }
 
@@ -770,6 +791,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    pointer-events: none;
 }
 
 .notif {
@@ -782,6 +804,7 @@ body {
     animation: notifIn 0.3s ease-out;
     max-width: 340px;
     border-left: 4px solid #89b4fa;
+    pointer-events: auto;
 }
 
 .notif.notif-success {
@@ -799,65 +822,22 @@ body {
     to { transform: translateX(0); opacity: 1; }
 }
 
-/* ── Finish Modal ── */
-#finish-modal {
+/* ── Tooltip for sidebar ── */
+.sidebar-tooltip {
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 9000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-
-#finish-modal.show {
-    display: flex;
-}
-
-.finish-card {
-    background: #1e1e2e;
-    border-radius: 16px;
-    padding: 40px;
-    max-width: 500px;
-    width: 90%;
-    text-align: center;
+    bottom: 20px;
+    left: 290px;
+    background: #313244;
     color: #cdd6f4;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-}
-
-.finish-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #89b4fa;
-}
-
-.finish-score {
-    font-size: 48px;
-    font-weight: 700;
-    color: #a6e3a1;
-    margin: 20px 0;
-}
-
-.finish-details {
-    text-align: left;
-    margin: 20px 0;
-    font-size: 13px;
-    line-height: 1.8;
-}
-
-.finish-btn {
-    background: #89b4fa;
-    color: #1e1e2e;
-    border: none;
-    padding: 12px 32px;
+    padding: 10px 16px;
     border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 16px;
+    font-size: 12px;
+    z-index: 901;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    max-width: 250px;
+    border-left: 3px solid #89b4fa;
 }
 
-.finish-btn:hover {
-    background: #b4d0fb;
+.sidebar-tooltip.hidden {
+    display: none;
 }

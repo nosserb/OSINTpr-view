@@ -260,8 +260,55 @@ function addSidebarItem(fact) { let container = document.getElementById("info-"+
 function addErrorItem(fact) { const container = document.getElementById("info-erreurs"); const item = document.createElement("div"); item.className = "sidebar-item error"; item.innerHTML = `<b>${fact.label}:</b> ${fact.value}`; container.appendChild(item); }
 function updateScore() { document.getElementById("score-display").textContent = score; const correctCount = Object.keys(found).length; const totalCorrect = ALL_FACTS.filter(f => f.correct).length; const pct = (correctCount / totalCorrect) * 100; document.getElementById("progress-fill").style.width = pct + "%"; document.getElementById("progress-text").textContent = correctCount + " / " + totalCorrect + " infos"; document.getElementById("score-display").style.color = score < 50 ? "#f38ba8" : "#a6e3a1"; }
 
+// ═══ SIDEBAR TABS ═══
+let activeTab = "all";
+document.querySelectorAll(".sidebar-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+        document.querySelectorAll(".sidebar-tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        activeTab = tab.dataset.target;
+        filterSidebar();
+    });
+});
+
+function filterSidebar() {
+    document.querySelectorAll("#sidebar-body .sidebar-section").forEach(sec => {
+        const title = sec.querySelector(".sidebar-title");
+        if (!title) return;
+        if (activeTab === "all") { sec.style.display = ""; return; }
+        const sectionName = title.textContent.toLowerCase();
+        const targetName = TARGETS[activeTab] ? TARGETS[activeTab].name.toLowerCase() : "";
+        sec.style.display = sectionName.includes(targetName) || sectionName === "erreurs" ? "" : "none";
+    });
+}
+
+// ═══ TOOLTIP ═══
+const searchHints = [
+    "zoe",
+    "zoe rouleau",
+    "zoe rouleau 93210",
+    "geore2004",
+    "kevin duval",
+    "kevin duval dj montpellier",
+    "brigitte legrand",
+    "brigitte legrand nantes chat",
+    "agent x 75013",
+    "agent x kali python",
+];
+function updateTooltip(q) {
+    const tooltip = document.getElementById("sidebar-tooltip");
+    if (!tooltip) return;
+    const lw = q.toLowerCase();
+    if (lw.length < 2) { tooltip.innerHTML = "<b>Astuce:</b> Commencez par chercher un nom (zoe, kevin, brigitte, agent x)"; tooltip.classList.remove("hidden"); return; }
+    const exact = searchHints.find(h => lw === h);
+    if (exact) { tooltip.innerHTML = "<b>Recherche ideale!</b> Explorez les resultats et cliquez sur les mots bleus."; tooltip.classList.remove("hidden"); return; }
+    const partial = searchHints.filter(h => h.includes(lw) || lw.includes(h));
+    if (partial.length > 0) { tooltip.innerHTML = "<b>Pas mal!</b> Ajoutez plus de mots pour etre plus precis: <br>" + partial.slice(0,2).map(p => "- " + p).join("<br>"); tooltip.classList.remove("hidden"); return; }
+    tooltip.innerHTML = "<b>Essayez:</b> zoe rouleau 93210, kevin duval dj, brigitte legrand nantes, agent x 75013"; tooltip.classList.remove("hidden");
+}
+
 // ═══ GOOGLE ═══
-function openGoogle() { document.getElementById("google-overlay").style.display = "flex"; document.getElementById("google-input").value = ""; document.getElementById("google-input").focus(); document.getElementById("google-results").innerHTML = ""; }
+function openGoogle() { document.getElementById("google-overlay").style.display = "flex"; document.getElementById("google-input").value = ""; document.getElementById("google-input").focus(); document.getElementById("google-results").innerHTML = ""; updateTooltip(""); }
 document.getElementById("google-close").addEventListener("click", () => { document.getElementById("google-overlay").style.display = "none"; });
 document.getElementById("google-search-btn").addEventListener("click", doSearch);
 document.getElementById("google-input").addEventListener("keydown", (e) => { if (e.key === "Enter") doSearch(); });
@@ -270,11 +317,10 @@ document.getElementById("sidebar-toggle").addEventListener("click", () => { docu
 function doSearch() {
     const q = document.getElementById("google-input").value.trim().toLowerCase();
     const res = document.getElementById("google-results");
+    updateTooltip(q);
     if (!q) { res.innerHTML = ""; return; }
     const words = q.split(/\s+/).filter(w => w.length > 1);
     const wordCount = words.length;
-    // RECHERCHE PROGRESSIVE: l'entree doit avoir minKw <= nombre de mots de la recherche
-    // ET au moins la moitie des mots de l'entree doivent matcher
     let results = googleDB.filter((entry) => {
         if (wordCount < entry.minKw) return false;
         const matchCount = words.filter(w => entry.kw.some(k => k.includes(w) || w.includes(k))).length;
