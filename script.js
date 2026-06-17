@@ -295,10 +295,42 @@ function runCmd(c) {
   <span style="color:#f9e2af">date</span>                 — Date et heure
   <span style="color:#f9e2af">clear</span>                — Vider le terminal
   <span style="color:#f9e2af">google</span>               — Ouvrir Google (recherche web)
+  <span style="color:#f9e2af">guide</span>                — Guide pas-a-pas pour debutants
   <span style="color:#f9e2af">nmap 192.168.1.0/24</span> — Scanner le reseau
-  <span style="color:#f9e2af">theharvester &lt;nom&gt;</span>  — Outil OSINT
+  <span style="color:#f9e2af">theharvester &lt;nom&gt;</span>  — Outil OSINT (emails)
   <span style="color:#f9e2af">sherlock &lt;pseudo&gt;</span>   — Chercher un pseudo en ligne
   <span style="color:#f9e2af">exif &lt;image&gt;</span>        — Lire les metadata d'une photo`,
+
+        "guide": `<span style="color:#89b4fa">╔══════════════════════════════════════════════╗</span>
+<span style="color:#89b4fa">║     GUIDE PAS-A-PAS — DEBUTANT OSINT          ║</span>
+<span style="color:#89b4fa">╚══════════════════════════════════════════════╝</span>
+
+<span style="color:#f9e2af">ETAPE 1 — Lire le fichier d'identite:</span>
+  Tapez: <b>cat fichier_id.txt</b>
+  -> Vous verrez les indices de base
+
+<span style="color:#f9e2af">ETAPE 2 — Ouvrir Google:</span>
+  Tapez: <b>google</b>
+  -> Une page de recherche s'ouvre
+
+<span style="color:#f9e2af">ETAPE 3 — Chercher la cible:</span>
+  Dans Google, essayez ces recherches:
+  - <b>Thomas Beaumont Bordeaux</b>
+  - <b>@thomas.beaumont.photography</b>
+  - <b>t_beaumont_photo</b>
+  - <b>tbeaumont</b>
+  - <b>thomas.beaumont.pro@gmail.com</b>
+
+<span style="color:#f9e2af">ETAPE 4 — Utiliser les outils OSINT:</span>
+  <b>theharvester thomas beaumont</b>  -> emails
+  <b>sherlock tbeaumont</b>            -> pseudos
+  <b>exif photo.jpg</b>               -> metadata photo
+
+<span style="color:#f9e2af">ETAPE 5 — Rassembler les infos:</span>
+  Nom complet, age, ville, metier, email, tel,
+  voiture, ecole, animal, sport, comptes...
+
+<span style="color:#f38ba8">Le flag se trouve dans un resultat Google!</span>`,
 
         "ls": `fichier_id.txt   briefing.txt   notes.txt   photo.jpg   dossier_suspect/`,
         "whoami": "detective_osint",
@@ -334,8 +366,9 @@ d'informations — vous devez completer l'enquete.
 
 Bonne enquete, agent!`,
 
-        // ── Fichier identite (reduit) ──
-        "cat fichier_id.txt": `<span style="color:#f9e2af">╔══════════════════════════════════════════════╗</span>
+        // ── Folder view ──
+        "ls dossier_suspect": "fichier_id.txt  photo.jpg  notes.txt",
+        "cat dossier_suspect/fichier_id.txt": `<span style="color:#f9e2af">╔══════════════════════════════════════════════╗</span>
 <span style="color:#f9e2af">║       FICHIER D'IDENTITE — PARTIEL            ║</span>
 <span style="color:#f9e2af">╚══════════════════════════════════════════════╝</span>
 
