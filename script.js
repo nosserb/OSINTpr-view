@@ -209,4 +209,27 @@ function openApp(app) {
     }
 }
 
+const desktop = document.getElementById('desktop');
+
+desktop.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    const menu = document.getElementById('context-menu');
+    menu.style.display = 'block';
+    menu.style.left = e.clientX + 'px';
+    menu.style.top = e.clientY + 'px';
+});
+
+document.addEventListener('click', () => {
+    document.getElementById('context-menu').style.display = 'none';
+});
+
+document.querySelectorAll('.ctx-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const action = item.dataset.action;
+        if (action === 'terminal' || action === 'open-terminal') {
+            createTerminal();
+        }
+    });
+});
+
 console.log('CTF Ubuntu Desktop loaded');

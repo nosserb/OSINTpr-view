@@ -329,3 +329,33 @@ body {
     white-space: pre-wrap;
     overflow-y: auto;
 }
+
+#context-menu {
+    position: fixed;
+    background: #3d3d3d;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 6px 0;
+    min-width: 220px;
+    z-index: 2000;
+    display: none;
+    font-size: 13px;
+}
+
+.ctx-item {
+    padding: 8px 16px;
+    color: #ddd;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.ctx-item:hover {
+    background: #e95420;
+    color: white;
+}
+
+.ctx-separator {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 4px 0;
+}
