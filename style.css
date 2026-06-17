@@ -695,6 +695,7 @@ body {
     padding: 6px 12px;
     border-radius: 50%;
     z-index: 10;
+    background: white;
 }
 
 #google-close:hover {
@@ -787,7 +788,7 @@ body {
     position: fixed;
     top: 38px;
     right: 12px;
-    z-index: 1500;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -824,18 +825,16 @@ body {
 
 /* ── Tooltip for sidebar ── */
 .sidebar-tooltip {
-    position: fixed;
-    bottom: 20px;
-    left: 290px;
     background: #313244;
     color: #cdd6f4;
     padding: 10px 16px;
     border-radius: 8px;
     font-size: 12px;
-    z-index: 901;
     box-shadow: 0 4px 16px rgba(0,0,0,0.4);
     max-width: 250px;
     border-left: 3px solid #89b4fa;
+    margin: 8px 12px;
+    flex-shrink: 0;
 }
 
 .sidebar-tooltip.hidden {
