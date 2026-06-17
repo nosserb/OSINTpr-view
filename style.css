@@ -152,3 +152,56 @@ body {
     background: rgba(255, 255, 255, 0.3);
     margin: 4px 0;
 }
+
+#desktop-icons {
+    position: fixed;
+    top: 40px;
+    left: 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}
+
+.desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.desktop-icon:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.desktop-icon span {
+    color: white;
+    font-size: 11px;
+    margin-top: 4px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    word-wrap: break-word;
+}
+
+.desktop-icon-img {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 28px;
+}
+
+.readme-icon {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+.flag-icon {
+    background: rgba(255, 255, 255, 0.9);
+    color: #e95420;
+}
