@@ -459,3 +459,70 @@ body {
     font-size: 13px;
     opacity: 0.7;
 }
+
+#activities-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
+    backdrop-filter: blur(8px);
+}
+
+.activities-search {
+    margin-bottom: 40px;
+}
+
+.activities-search-input {
+    width: 400px;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    text-align: center;
+}
+
+.activities-search-input:focus {
+    border-color: #e95420;
+}
+
+.activities-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.activities-grid {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 600px;
+}
+
+.activity-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 12px;
+    transition: background 0.2s;
+}
+
+.activity-app:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.activity-app span {
+    color: white;
+    font-size: 13px;
+}

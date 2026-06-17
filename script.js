@@ -241,28 +241,36 @@ lockPassword.addEventListener('keydown', (e) => {
             lockPassword.value = '';
             lockPassword.style.borderColor = '#e74c3c';
             setTimeout(() => { lockPassword.style.borderColor = 'rgba(255,255,255,0.3)'; }, 1000);
+            }
         }
+    });
+}
+
+const activitiesOverlay = document.getElementById('activities-overlay');
+const activitiesBtn = document.querySelector('.panel-app-name');
+
+activitiesBtn.addEventListener('click', () => {
+    activitiesOverlay.style.display = activitiesOverlay.style.display === 'none' ? 'flex' : 'none';
+});
+
+document.querySelectorAll('.activity-app').forEach(app => {
+    app.addEventListener('click', () => {
+        openApp(app.dataset.app);
+        activitiesOverlay.style.display = 'none';
+    });
+});
+
+activitiesOverlay.addEventListener('click', (e) => {
+    if (e.target === activitiesOverlay) {
+        activitiesOverlay.style.display = 'none';
     }
 });
 
-desktop.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    const menu = document.getElementById('context-menu');
-    menu.style.display = 'block';
-    menu.style.left = e.clientX + 'px';
-    menu.style.top = e.clientY + 'px';
+activitiesOverlay.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        activitiesOverlay.style.display = 'none';
+    }
 });
-
-document.addEventListener('click', () => {
-    document.getElementById('context-menu').style.display = 'none';
-});
-
-document.querySelectorAll('.ctx-item').forEach(item => {
-    item.addEventListener('click', () => {
-        const action = item.dataset.action;
-        if (action === 'terminal' || action === 'open-terminal') {
-            createTerminal();
-        }
     });
 });
 
