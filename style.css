@@ -16,3 +16,52 @@ body {
     background: linear-gradient(135deg, #2c001e 0%, #77216f 30%, #e95420 70%, #f29b0a 100%);
     position: relative;
 }
+
+#top-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 28px;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    color: white;
+    font-size: 13px;
+    z-index: 1000;
+}
+
+.panel-left, .panel-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.panel-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.panel-app-name {
+    cursor: pointer;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.panel-app-name:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.panel-icon {
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.panel-icon:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
