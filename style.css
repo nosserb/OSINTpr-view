@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    font-family: 'Ubuntu', 'Segoe UI', sans-serif;
+    user-select: none;
+}
+
+#desktop {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #2c001e 0%, #77216f 30%, #e95420 70%, #f29b0a 100%);
+    position: relative;
+}
