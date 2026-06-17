@@ -1,3 +1,39 @@
+const bootScreen = document.getElementById('boot-screen');
+const bootText = document.getElementById('boot-text');
+
+const bootMessages = [
+    '[    0.000000] Linux version 5.15.0-ctf (ctf@build)',
+    '[    0.000001] Command line: BOOT_IMAGE=/vmlinuz',
+    '[    0.000100] BIOS-provided physical RAM map:',
+    '[    0.100000] Calibrating delay loop... 3481.28 BogoMIPS',
+    '[    0.200000] Security Framework initialized',
+    '[    0.300000] Mounting root filesystem...',
+    '[    0.400000] Loading CTF modules...',
+    '[    0.500000] Starting flag守护进程...',
+    '[    0.600000] Network: eth0: 10.10.1337.7/24',
+    '[    0.700000] SSH server: listening on port 22',
+    '[    0.800000] System ready.',
+    '',
+    'Ubuntu 22.04.3 LTS',
+    '',
+];
+
+let bootIndex = 0;
+const bootInterval = setInterval(() => {
+    if (bootIndex < bootMessages.length) {
+        bootText.textContent += bootMessages[bootIndex] + '\n';
+        bootText.style.opacity = '1';
+        bootIndex++;
+    } else {
+        clearInterval(bootInterval);
+        setTimeout(() => {
+            bootScreen.style.transition = 'opacity 0.5s';
+            bootScreen.style.opacity = '0';
+            setTimeout(() => bootScreen.remove(), 500);
+        }, 600);
+    }
+}, 120);
+
 function updateClock() {
     const now = new Date();
     const options = { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' };
