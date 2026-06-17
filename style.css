@@ -205,3 +205,127 @@ body {
     background: rgba(255, 255, 255, 0.9);
     color: #e95420;
 }
+
+#windows-container {
+    position: fixed;
+    top: 28px;
+    left: 58px;
+    right: 0;
+    bottom: 0;
+    z-index: 500;
+}
+
+.window {
+    position: absolute;
+    background: #2d2d2d;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    min-width: 400px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.window.maximized {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0;
+}
+
+.window-header {
+    background: #3d3d3d;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: grab;
+    flex-shrink: 0;
+}
+
+.window-header:active {
+    cursor: grabbing;
+}
+
+.window-title {
+    color: #ddd;
+    font-size: 13px;
+    flex: 1;
+    text-align: center;
+}
+
+.window-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.window-btn {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 0;
+}
+
+.window-btn-minimize { background: #f1c40f; }
+.window-btn-maximize { background: #2ecc71; }
+.window-btn-close { background: #e74c3c; }
+
+.window-btn:hover { filter: brightness(1.2); }
+
+.window-body {
+    flex: 1;
+    overflow: auto;
+    color: #ccc;
+}
+
+.terminal-body {
+    background: #300a24;
+    color: #4e9a06;
+    font-family: 'Ubuntu Mono', 'Courier New', monospace;
+    font-size: 14px;
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.terminal-line {
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+}
+
+.terminal-prompt {
+    color: #4e9a06;
+    margin-right: 6px;
+    white-space: nowrap;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    color: #4e9a06;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+    flex: 1;
+    caret-color: #4e9a06;
+}
+
+.text-editor-body {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    padding: 10px;
+    height: 100%;
+    white-space: pre-wrap;
+    overflow-y: auto;
+}
