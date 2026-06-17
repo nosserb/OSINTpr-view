@@ -65,3 +65,90 @@ body {
 .panel-icon:hover {
     background: rgba(255, 255, 255, 0.15);
 }
+
+#dock {
+    position: fixed;
+    left: 0;
+    top: 28px;
+    bottom: 0;
+    width: 58px;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 0;
+    gap: 4px;
+    z-index: 999;
+}
+
+.dock-item {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.dock-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.dock-icon {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.terminal-icon {
+    background: #300a24;
+    color: #4e9a06;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.files-icon {
+    background: #3d7DED;
+    color: white;
+    font-size: 22px;
+}
+
+.browser-icon {
+    background: #FF6611;
+    color: white;
+    font-size: 22px;
+}
+
+.text-icon {
+    background: #4a4a4a;
+    color: white;
+    font-size: 20px;
+}
+
+.settings-icon {
+    background: #555;
+    color: white;
+    font-size: 22px;
+}
+
+.apps-icon {
+    background: transparent;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.dock-separator {
+    width: 30px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 4px 0;
+}
