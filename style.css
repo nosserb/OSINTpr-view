@@ -510,12 +510,40 @@ body {
 
 .sidebar-score {
     padding: 10px 16px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     color: #a6e3a1;
     text-align: center;
     background: rgba(166,227,161,0.1);
     border-bottom: 1px solid #313244;
+}
+
+.sidebar-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px 12px;
+    border-bottom: 1px solid #313244;
+}
+
+.sidebar-tab {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    color: #585b70;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sidebar-tab:hover {
+    background: rgba(137,180,250,0.2);
+    color: #89b4fa;
+}
+
+.sidebar-tab.active {
+    background: #89b4fa;
+    color: #1e1e2e;
+    font-weight: 600;
 }
 
 .sidebar-body {
