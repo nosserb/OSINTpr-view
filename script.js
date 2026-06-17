@@ -220,6 +220,45 @@ const googleDB = [
     { kw: ["hacker", "anonymous", "france", "email"], title: "hacker@anonymous.fr", url: "emailrep.io", snippet: `<span class="osint-word" data-id="xf4">hacker@anonymous.fr</span> — Pas Agent X. Email generique.` },
     { kw: ["agent", "x", "windows", "os"], title: "Agent X — Windows 11", url: "microsoft.com", snippet: `<span class="osint-word" data-id="xf5">Windows 11</span> — OS d'Agent X. PAS notre Agent X (il utilise Kali).` },
     { kw: ["agent", "x", "html", "langage"], title: "Agent X — Langage: HTML", url: "w3schools.com", snippet: `<span class="osint-word" data-id="xf6">HTML</span> — Langage prefere d'Agent X. PAS notre Agent X (il utilise Python).` },
+
+    // ═══ RECHERCHES VAGUES — Peu de resultats precis ═══
+    // Juste "zoe" → beaucoup de Zoe, une seule bonne info
+    { kw: ["zoe"], title: "Zoe — Liste des personnes en France", url: "annuaire-ville.fr/zoe", snippet: `Resultats pour "Zoe": <span class="osint-word" data-id="z1">Zoé Rouleau</span>, Zoé Martin, Zoé Dubois, Zoé Bernard, Zoé Moreau, Zoé Petit, Zoé Robert... 4 523 resultats.` },
+    { kw: ["zoe"], title: "Zoe — Prenoms populaires 2024", url: "prenoms.net/zoe", snippet: `Zoe est un prenom feminin. <span class="osint-word" data-id="z1">Rouleau</span> est l'un des noms de famille associes. 12 000 Zoe en France.` },
+    { kw: ["zoe"], title: "Zoé — Wikipédia", url: "fr.wikipedia.org/wiki/Zoé", snippet: `Zoé (grec: ζωή, "vie") — Prenom d'origine grecque. <span class="osint-word" data-id="z1">Rouleau</span> est un nom de famille francais courant.` },
+    { kw: ["zoe"], title: "Zoe — Prenom et origine", url: "prenom-cible.com/zoe", snippet: `Signification de Zoe: "la vie". Prenom feminin. <span class="osint-word" data-id="z1">Zoé Rouleau</span> est l'un des porteurs de ce prenom.` },
+
+    // Juste "rouleau" → beaucoup de Rouleau, une seule bonne info
+    { kw: ["rouleau"], title: "Rouleau — Nom de famille", url: "noms-defamille.fr/rouleau", snippet: `Nom "Rouleau" — 34 000 personnes en France. Celebres: <span class="osint-word" data-id="z1">Zoé Rouleau</span>, Patrick Rouleau (acteur), Claude Rouleau (historien).` },
+    { kw: ["rouleau"], title: "Rouleau — Origine du nom", url: "genealogie.com/rouleau", snippet: `Nom de famille "Rouleau" — Origine: metier de "rouleur" (tisserand). <span class="osint-word" data-id="z1">Zoé Rouleau</span> est l'un des Rouleau actifs en ligne.` },
+
+    // Juste "kevin" → beaucoup de Kevin
+    { kw: ["kevin"], title: "Kevin — Prenoms populaires", url: "prenoms.net/kevin", snippet: `Kevin — 38 000 Kevin en France. <span class="osint-word" data-id="k1">Kevin Duval</span>, Kevin Costner, Kevin Hart, Kevin Mayer...` },
+    { kw: ["kevin"], title: "Kevin — Liste des personnes", url: "annuaire-ville.fr/kevin", snippet: `Resultats pour "Kevin": <span class="osint-word" data-id="k1">Kevin Duval</span>, Kevin Martin, Kevin Bernard, Kevin Lefevre, Kevin Moreau... 8 234 resultats.` },
+    { kw: ["kevin"], title: "Kevin — Origine du prenom", url: "prenom-cible.com/kevin", snippet: `Kevin: prenom masculin d'origine celtique. <span class="osint-word" data-id="k1">Duval</span> est un nom de famille courant associe a Kevin.` },
+
+    // Juste "duval" → beaucoup de Duval
+    { kw: ["duval"], title: "Duval — Nom de famille", url: "noms-defamille.fr/duval", snippet: `Nom "Duval" — 42 000 personnes en France. Celebres: <span class="osint-word" data-id="k1">Kevin Duval</span>, Pierre Duval (geographe), Armand Duval (personnage litteraire).` },
+    { kw: ["duval"], title: "Duval — Origine", url: "genealogie.com/duval", snippet: `Duval: "de la vallee". 42 000 Duval en France. <span class="osint-word" data-id="k1">Kevin Duval</span> est l'un des plus actifs en ligne.` },
+
+    // Juste "brigitte" → beaucoup de Brigitte
+    { kw: ["brigitte"], title: "Brigitte — Prenoms populaires", url: "prenoms.net/brigitte", snippet: `Brigitte — 156 000 Brigitte en France. <span class="osint-word" data-id="b1">Brigitte Legrand</span>, Brigitte Bardot, Brigitte Macron, Brigitte Bourg...` },
+    { kw: ["brigitte"], title: "Brigitte — Liste des personnes", url: "annuaire-ville.fr/brigitte", snippet: `Resultats pour "Brigitte": <span class="osint-word" data-id="b1">Brigitte Legrand</span>, Brigitte Martin, Brigitte Bernard, Brigitte Moreau... 12 456 resultats.` },
+    { kw: ["brigitte"], title: "Brigitte — Origine", url: "prenom-cible.com/brigitte", snippet: `Brigitte: prenom feminin d'origine celtique (force). <span class="osint-word" data-id="b1">Legrand</span> est un nom courant.` },
+
+    // Juste "legrand" → beaucoup de Legrand
+    { kw: ["legrand"], title: "Legrand — Nom de famille", url: "noms-defamille.fr/legrand", snippet: `Nom "Legrand" — 56 000 personnes en France. Celebres: <span class="osint-word" data-id="b1">Brigitte Legrand</span>, Michel Legrand (compositeur), Emmanuel Legrand (journaliste).` },
+    { kw: ["legrand"], title: "Legrand — Origine", url: "genealogie.com/legrand", snippet: `Legrand: "le grand". 56 000 Legrand en France. <span class="osint-word" data-id="b1">Brigitte Legrand</span> est l'une des Legrand actives en ligne.` },
+
+    // Juste "agent" → beaucoup d'agents
+    { kw: ["agent"], title: "Agent — Resultats divers", url: "google.fr/agent", snippet: `Resultats pour "agent": Agent immobilier, Agent commercial, Agent secret, <span class="osint-word" data-id="x1">Agent_X_75013</span>, Agent Carter (Marvel), Agent Smith (Matrix)...` },
+    { kw: ["agent"], title: "Agent — Dictionnaire", url: "larousse.fr/agent", snippet: `Agent: personnage qui agit pour le compte d'autrui. <span class="osint-word" data-id="x1">Agent_X_75013</span> est l'un des agents anonymes references.` },
+
+    // Recherches intermediaires (un peu plus precises)
+    { kw: ["zoe", "paris"], title: "Zoe a Paris — Resultats", url: "annuaire-ville.fr/zoe-paris", snippet: `Zoe a Paris: Zoé Martin (75005), Zoé Dubois (75008), Zoé Bernard (75011), <span class="osint-word" data-id="z1">Zoé Rouleau</span> (93210 - pas Paris!).` },
+    { kw: ["kevin", "dj"], title: "Kevin DJ — Resultats", url: "google.fr/kevin-dj", snippet: `Kevin DJ: <span class="osint-word" data-id="k1">Kevin Duval</span> (Montpellier), DJ Kevin (Lyon), Kevin La Fouine (rappeur), DJ Kev' (Nantes)...` },
+    { kw: ["brigitte", "chat"], title: "Brigitte chat — Resultats", url: "google.fr/brigitte-chat", snippet: `Brigitte chat: <span class="osint-word" data-id="b1">Brigitte Legrand</span> (Nantes, 12 chats), Brigitte Bardot (defenseuse animaux), Brigitte la Chatte (pseudo Instagram)...` },
+    { kw: ["agent", "x"], title: "Agent X — Resultats", url: "google.fr/agent-x", snippet: `Agent X: <span class="osint-word" data-id="x1">Agent_X_75013</span> (Paris), Agent X (film 2023), Agent X (MI6), Agent X (Marvel)...` },
 ];
 
 // ═══ BOOT ═══
