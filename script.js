@@ -348,7 +348,7 @@ Une photo a été interceptée -> vérifiez les metadata.
 
 <span style="color:#e95420">Rappel:</span>
 Chaque flag au format OSINT{...} validé = points.
-Total des flags disponibles: 5
+Total des flags disponibles: 6
 
 Bonne chance, agent.`,
     'notes.txt': `<span style="color:#e95420">=== NOTES RECON - AGENT osint_agent ===</span>
