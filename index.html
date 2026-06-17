@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CTF Ubuntu Desktop</title>
+    <title>OSINT CTF - Ubuntu Desktop</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,9 +15,9 @@
         <div id="lock-date"></div>
         <div id="lock-user-area">
             <div id="lock-avatar">&#128100;</div>
-            <div id="lock-username">ctf_player</div>
+            <div id="lock-username">osint_agent</div>
             <input type="password" id="lock-password" placeholder="Mot de passe...">
-            <div id="lock-hint">Indice: essayez "flag" ou "ctf"</div>
+            <div id="lock-hint">Indice: le 1er mot de passe d'un hacker connu</div>
             <div id="lock-error"></div>
         </div>
         <div id="lock-footer">
@@ -44,17 +44,17 @@
             <div class="dock-item" data-app="terminal" title="Terminal">
                 <div class="dock-icon terminal-icon">>&nbsp;</div>
             </div>
-            <div class="dock-item" data-app="files" title="Files">
-                <div class="dock-icon files-icon">&#128193;</div>
-            </div>
             <div class="dock-item" data-app="browser" title="Firefox">
                 <div class="dock-icon browser-icon">&#127760;</div>
+            </div>
+            <div class="dock-item" data-app="files" title="Files">
+                <div class="dock-icon files-icon">&#128193;</div>
             </div>
             <div class="dock-item" data-app="text" title="Text Editor">
                 <div class="dock-icon text-icon">&#128221;</div>
             </div>
-            <div class="dock-item" data-app="settings" title="Settings">
-                <div class="dock-icon settings-icon">&#9881;</div>
+            <div class="dock-item" data-app="image" title="Image Viewer">
+                <div class="dock-icon image-icon">&#127912;</div>
             </div>
             <div class="dock-separator"></div>
             <div class="dock-item" data-app="show-apps" title="Show Applications">
@@ -68,11 +68,19 @@
             </div>
             <div class="desktop-icon" data-app="readme">
                 <div class="desktop-icon-img readme-icon">&#128196;</div>
-                <span>README.txt</span>
+                <span>briefing.txt</span>
             </div>
-            <div class="desktop-icon" data-app="flag">
-                <div class="desktop-icon-img flag-icon">&#127988;</div>
-                <span>flag.txt</span>
+            <div class="desktop-icon" data-app="photo">
+                <div class="desktop-icon-img photo-icon">&#128247;</div>
+                <span>suspect_photo.jpg</span>
+            </div>
+            <div class="desktop-icon" data-app="notes">
+                <div class="desktop-icon-img notes-icon">&#128221;</div>
+                <span>notes.txt</span>
+            </div>
+            <div class="desktop-icon" data-app="contacts">
+                <div class="desktop-icon-img contacts-icon">&#128101;</div>
+                <span>contacts.csv</span>
             </div>
         </div>
         <div id="windows-container"></div>
@@ -95,21 +103,21 @@
                     <div class="dock-icon terminal-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">>&nbsp;</div>
                     <span>Terminal</span>
                 </div>
-                <div class="activity-app" data-app="files">
-                    <div class="dock-icon files-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">&#128193;</div>
-                    <span>Files</span>
-                </div>
                 <div class="activity-app" data-app="browser">
                     <div class="dock-icon browser-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">&#127760;</div>
                     <span>Firefox</span>
+                </div>
+                <div class="activity-app" data-app="files">
+                    <div class="dock-icon files-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">&#128193;</div>
+                    <span>Files</span>
                 </div>
                 <div class="activity-app" data-app="text">
                     <div class="dock-icon text-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">&#128221;</div>
                     <span>Text Editor</span>
                 </div>
-                <div class="activity-app" data-app="settings">
-                    <div class="dock-icon settings-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">&#9881;</div>
-                    <span>Settings</span>
+                <div class="activity-app" data-app="image">
+                    <div class="dock-icon image-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">&#127912;</div>
+                    <span>Image Viewer</span>
                 </div>
             </div>
         </div>
@@ -120,7 +128,7 @@
                 <button id="flag-panel-close">&#10005;</button>
             </div>
             <div class="flag-panel-body">
-                <input type="text" id="flag-input" placeholder="CTF{...}">
+                <input type="text" id="flag-input" placeholder="OSINT{...}">
                 <button id="flag-submit">Valider</button>
                 <div id="flag-result"></div>
             </div>
