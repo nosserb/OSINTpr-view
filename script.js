@@ -210,6 +210,40 @@ function openApp(app) {
 }
 
 const desktop = document.getElementById('desktop');
+const lockScreen = document.getElementById('lock-screen');
+const lockPassword = document.getElementById('lock-password');
+const lockError = document.getElementById('lock-error');
+const validPasswords = ['flag', 'ctf', 'password', 'admin', 'root'];
+
+function updateLockClock() {
+    const now = new Date();
+    document.getElementById('lock-time').textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('lock-date').textContent = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+updateLockClock();
+setInterval(updateLockClock, 1000);
+
+lockPassword.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const pwd = lockPassword.value.trim().toLowerCase();
+        if (validPasswords.includes(pwd)) {
+            lockScreen.style.transition = 'opacity 0.5s';
+            lockScreen.style.opacity = '0';
+            setTimeout(() => {
+                lockScreen.style.display = 'none';
+                desktop.style.display = 'block';
+                desktop.style.opacity = '0';
+                desktop.style.transition = 'opacity 0.5s';
+                setTimeout(() => desktop.style.opacity = '1', 50);
+            }, 500);
+        } else {
+            lockError.textContent = 'Mot de passe incorrect. Essayez encore...';
+            lockPassword.value = '';
+            lockPassword.style.borderColor = '#e74c3c';
+            setTimeout(() => { lockPassword.style.borderColor = 'rgba(255,255,255,0.3)'; }, 1000);
+        }
+    }
+});
 
 desktop.addEventListener('contextmenu', (e) => {
     e.preventDefault();

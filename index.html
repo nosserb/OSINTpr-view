@@ -7,7 +7,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="desktop">
+    <div id="lock-screen">
+        <div id="lock-time"></div>
+        <div id="lock-date"></div>
+        <div id="lock-user-area">
+            <div id="lock-avatar">&#128100;</div>
+            <div id="lock-username">ctf_player</div>
+            <input type="password" id="lock-password" placeholder="Mot de passe...">
+            <div id="lock-hint">Indice: essayez "flag" ou "ctf"</div>
+            <div id="lock-error"></div>
+        </div>
+        <div id="lock-footer">
+            <span>Ubuntu 22.04.3 LTS</span>
+            <span>&#9889; Alimentation</span>
+        </div>
+    </div>
+    <div id="desktop" style="display:none;">
         <div id="top-panel">
             <div class="panel-left">
                 <span class="panel-app-name">Activities</span>
