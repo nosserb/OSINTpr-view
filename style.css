@@ -6,28 +6,147 @@
 
 body {
     overflow: hidden;
-    font-family: 'Ubuntu', 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', 'Ubuntu', sans-serif;
     user-select: none;
+    background: #000;
 }
 
+/* ── Boot Screen ── */
+#boot-screen {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 100px;
+}
+
+#boot-lines {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #4e9a06;
+    white-space: pre;
+    line-height: 1.5;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* ── Lock Screen ── */
+#lock-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 5000;
+    color: white;
+}
+
+#lock-time {
+    font-size: 80px;
+    font-weight: 200;
+    margin-bottom: 4px;
+    letter-spacing: 2px;
+}
+
+#lock-date {
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 70px;
+    opacity: 0.8;
+}
+
+#lock-user-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+#lock-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    border: 3px solid rgba(255,255,255,0.2);
+}
+
+#lock-username {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+#lock-password {
+    width: 280px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#lock-password:focus {
+    border-color: #e95420;
+}
+
+#lock-password::placeholder {
+    color: rgba(255,255,255,0.4);
+}
+
+#lock-hint {
+    font-size: 12px;
+    opacity: 0.5;
+}
+
+#lock-error {
+    color: #ff6b6b;
+    font-size: 13px;
+    min-height: 20px;
+}
+
+#lock-footer {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    font-size: 13px;
+    opacity: 0.5;
+}
+
+/* ── Desktop ── */
 #desktop {
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(135deg, #2c001e 0%, #77216f 30%, #e95420 70%, #f29b0a 100%);
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
     position: relative;
 }
 
+/* ── Top Panel ── */
 #top-panel {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 28px;
-    background: rgba(0, 0, 0, 0.75);
+    height: 30px;
+    background: rgba(0,0,0,0.8);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 12px;
     color: white;
     font-size: 13px;
     z-index: 1000;
@@ -47,125 +166,101 @@ body {
 
 .panel-app-name {
     cursor: pointer;
-    padding: 2px 8px;
-    border-radius: 4px;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-weight: 500;
 }
 
 .panel-app-name:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.12);
 }
 
 .panel-icon {
     cursor: pointer;
-    font-size: 14px;
-    padding: 2px 4px;
-    border-radius: 3px;
+    padding: 2px 5px;
+    border-radius: 4px;
 }
 
 .panel-icon:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.12);
 }
 
+/* ── Dock ── */
 #dock {
     position: fixed;
     left: 0;
-    top: 28px;
+    top: 30px;
     bottom: 0;
-    width: 58px;
-    background: rgba(0, 0, 0, 0.65);
+    width: 60px;
+    background: rgba(0,0,0,0.6);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 8px 0;
-    gap: 4px;
+    padding: 10px 0;
+    gap: 6px;
     z-index: 999;
 }
 
 .dock-item {
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.2s;
+}
+
+.dock-item:hover {
+    background: rgba(255,255,255,0.15);
+    transform: scale(1.12);
+}
+
+.dock-icon {
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-}
-
-.dock-item:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
-}
-
-.dock-icon {
     font-size: 24px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
+}
+
+.chrome-icon {
+    background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335);
+    color: white;
+    font-size: 22px;
 }
 
 .terminal-icon {
-    background: #300a24;
-    color: #4e9a06;
+    background: #1e1e2e;
+    color: #a6e3a1;
     font-family: monospace;
     font-weight: bold;
     font-size: 18px;
 }
 
 .files-icon {
-    background: #3d7DED;
+    background: #89b4fa;
     color: white;
     font-size: 22px;
 }
 
-.browser-icon {
-    background: #FF6611;
-    color: white;
+.notes-icon {
+    background: #f9e2af;
+    color: #1e1e2e;
     font-size: 22px;
 }
 
-.text-icon {
-    background: #4a4a4a;
-    color: white;
-    font-size: 20px;
-}
-
-.image-icon {
-    background: #2980b9;
-    color: white;
-    font-size: 22px;
-}
-
-.settings-icon {
-    background: #555;
-    color: white;
-    font-size: 22px;
-}
-
-.apps-icon {
-    background: transparent;
-    color: white;
-    font-size: 26px;
-    font-weight: bold;
-}
-
-.dock-separator {
-    width: 30px;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.3);
-    margin: 4px 0;
-}
-
+/* ── Desktop Icons ── */
 #desktop-icons {
     position: fixed;
-    top: 40px;
-    left: 70px;
+    top: 44px;
+    left: 72px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     z-index: 10;
 }
 
@@ -173,62 +268,44 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80px;
-    padding: 6px;
-    border-radius: 6px;
+    width: 85px;
+    padding: 8px 4px;
+    border-radius: 8px;
     cursor: pointer;
     text-align: center;
 }
 
 .desktop-icon:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.12);
 }
 
 .desktop-icon span {
     color: white;
     font-size: 11px;
-    margin-top: 4px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-    word-wrap: break-word;
+    margin-top: 5px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
 }
 
 .desktop-icon-img {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    font-size: 28px;
+    border-radius: 10px;
+    font-size: 30px;
 }
 
-.readme-icon {
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-}
-
-.photo-icon {
-    background: #2980b9;
+.folder-icon {
+    background: rgba(137,180,250,0.9);
     color: white;
-    font-size: 24px;
 }
 
-.notes-icon {
-    background: #f1c40f;
-    color: #333;
-    font-size: 22px;
-}
-
-.contacts-icon {
-    background: #27ae60;
-    color: white;
-    font-size: 22px;
-}
-
+/* ── Windows ── */
 #windows-container {
     position: fixed;
-    top: 28px;
-    left: 58px;
+    top: 30px;
+    left: 60px;
     right: 0;
     bottom: 0;
     z-index: 500;
@@ -236,562 +313,280 @@ body {
 
 .window {
     position: absolute;
-    background: #2d2d2d;
-    border-radius: 10px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    background: #1e1e2e;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     overflow: hidden;
-    min-width: 400px;
-    min-height: 300px;
+    min-width: 380px;
+    min-height: 280px;
     display: flex;
     flex-direction: column;
 }
 
-.window.maximized {
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    border-radius: 0;
-}
-
 .window-header {
-    background: #3d3d3d;
-    padding: 6px 10px;
+    background: #313244;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     cursor: grab;
     flex-shrink: 0;
 }
 
-.window-header:active {
-    cursor: grabbing;
-}
-
-.window-title {
-    color: #ddd;
-    font-size: 13px;
-    flex: 1;
-    text-align: center;
-}
+.window-header:active { cursor: grabbing; }
 
 .window-controls {
     display: flex;
-    gap: 6px;
+    gap: 7px;
 }
 
 .window-btn {
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    font-size: 0;
 }
 
-.window-btn-minimize { background: #f1c40f; }
-.window-btn-maximize { background: #2ecc71; }
-.window-btn-close { background: #e74c3c; }
+.btn-close { background: #f38ba8; }
+.btn-minimize { background: #f9e2af; }
+.btn-maximize { background: #a6e3a1; }
+.window-btn:hover { filter: brightness(1.3); }
 
-.window-btn:hover { filter: brightness(1.2); }
+.window-title {
+    color: #cdd6f4;
+    font-size: 13px;
+    flex: 1;
+    text-align: center;
+    margin-right: -40px;
+}
 
 .window-body {
     flex: 1;
     overflow: auto;
-    color: #ccc;
+    color: #cdd6f4;
 }
 
+/* ── Terminal ── */
 .terminal-body {
-    background: #300a24;
-    color: #4e9a06;
-    font-family: 'Ubuntu Mono', 'Courier New', monospace;
+    background: #11111b;
+    color: #a6e3a1;
+    font-family: 'Courier New', monospace;
     font-size: 14px;
-    padding: 10px;
+    padding: 12px;
     height: 100%;
     overflow-y: auto;
+    line-height: 1.5;
 }
 
-.terminal-line {
-    white-space: pre-wrap;
-    word-break: break-all;
-}
+.term-line { white-space: pre-wrap; word-break: break-all; }
 
-.terminal-input-line {
+.term-input-row {
     display: flex;
     align-items: center;
 }
 
-.terminal-prompt {
-    color: #4e9a06;
+.term-prompt {
+    color: #89b4fa;
     margin-right: 6px;
     white-space: nowrap;
 }
 
-.terminal-input {
+.term-input {
     background: transparent;
     border: none;
-    color: #4e9a06;
+    color: #a6e3a1;
     font-family: inherit;
     font-size: inherit;
     outline: none;
     flex: 1;
-    caret-color: #4e9a06;
+    caret-color: #a6e3a1;
 }
 
-.text-editor-body {
-    background: #1e1e1e;
-    color: #d4d4d4;
-    font-family: 'Ubuntu Mono', monospace;
-    font-size: 14px;
-    padding: 10px;
+/* ── Text Viewer ── */
+.text-view {
+    background: #11111b;
+    color: #cdd6f4;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    padding: 16px;
     height: 100%;
     white-space: pre-wrap;
+    line-height: 1.6;
     overflow-y: auto;
 }
 
+/* ── Context Menu ── */
 #context-menu {
     position: fixed;
-    background: #3d3d3d;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    background: #313244;
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.5);
     padding: 6px 0;
-    min-width: 220px;
+    min-width: 200px;
     z-index: 2000;
     display: none;
     font-size: 13px;
 }
 
 .ctx-item {
-    padding: 8px 16px;
-    color: #ddd;
+    padding: 9px 18px;
+    color: #cdd6f4;
     cursor: pointer;
-    transition: background 0.15s;
 }
 
 .ctx-item:hover {
-    background: #e95420;
-    color: white;
+    background: #89b4fa;
+    color: #1e1e2e;
 }
 
 .ctx-separator {
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255,255,255,0.08);
     margin: 4px 0;
 }
 
-#lock-screen {
+/* ── Google Overlay ── */
+#google-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(135deg, #2c001e 0%, #77216f 50%, #e95420 100%);
+    inset: 0;
+    background: white;
+    z-index: 800;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 5000;
-    color: white;
 }
 
-#lock-time {
-    font-size: 72px;
-    font-weight: 200;
-    margin-bottom: 5px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-#lock-date {
-    font-size: 20px;
-    font-weight: 300;
-    margin-bottom: 60px;
-    opacity: 0.9;
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-}
-
-#lock-user-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-}
-
-#lock-avatar {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 48px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-}
-
-#lock-username {
-    font-size: 20px;
-    font-weight: 500;
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-}
-
-#lock-password {
-    width: 260px;
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    font-size: 14px;
-    outline: none;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    transition: border-color 0.3s;
-}
-
-#lock-password:focus {
-    border-color: #e95420;
-}
-
-#lock-password::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-#lock-hint {
-    font-size: 12px;
-    opacity: 0.6;
-    margin-top: 5px;
-}
-
-#lock-error {
-    color: #ff6b6b;
-    font-size: 13px;
-    min-height: 20px;
-}
-
-#lock-footer {
-    position: fixed;
-    bottom: 20px;
+.google-page {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 30px;
-    font-size: 13px;
-    opacity: 0.7;
-}
-
-#activities-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.85);
-    z-index: 900;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 80px;
-    backdrop-filter: blur(8px);
+    padding-top: 18vh;
+    position: relative;
 }
 
-.activities-search {
-    margin-bottom: 40px;
+.google-logo {
+    font-size: 64px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    letter-spacing: -2px;
 }
 
-.activities-search-input {
-    width: 400px;
-    padding: 12px 20px;
-    border-radius: 25px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    font-size: 16px;
+.google-search-bar {
+    display: flex;
+    align-items: center;
+    width: 580px;
+    max-width: 90vw;
+    border: 1px solid #dfe1e5;
+    border-radius: 28px;
+    padding: 0 16px;
+    height: 50px;
+    box-shadow: 0 1px 6px rgba(32,33,36,0.18);
+    transition: box-shadow 0.2s;
+}
+
+.google-search-bar:focus-within {
+    box-shadow: 0 2px 10px rgba(32,33,36,0.28);
+}
+
+#google-input {
+    flex: 1;
+    border: none;
     outline: none;
-    text-align: center;
+    font-size: 16px;
+    color: #202124;
+    background: transparent;
 }
 
-.activities-search-input:focus {
-    border-color: #e95420;
-}
-
-.activities-search-input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.activities-grid {
-    display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 600px;
-}
-
-.activity-app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+#google-search-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
     cursor: pointer;
-    padding: 12px;
-    border-radius: 12px;
-    transition: background 0.2s;
+    padding: 4px 8px;
+    color: #4285f4;
 }
 
-.activity-app:hover {
-    background: rgba(255, 255, 255, 0.1);
+#google-close {
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    font-size: 22px;
+    color: #5f6368;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 50%;
 }
 
-.activity-app span {
-    color: white;
-    font-size: 13px;
+#google-close:hover {
+    background: #f1f3f4;
 }
 
+/* Google Results */
+#google-results {
+    width: 580px;
+    max-width: 90vw;
+    margin-top: 24px;
+}
+
+.g-result {
+    margin-bottom: 24px;
+}
+
+.g-result-url {
+    color: #202124;
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.g-result-title {
+    color: #1a0dab;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.g-result-title:hover { text-decoration: underline; }
+
+.g-result-snippet {
+    color: #4d5156;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.g-no-results {
+    color: #5f6368;
+    font-size: 14px;
+    padding: 20px 0;
+    border-top: 1px solid #ebebeb;
+}
+
+/* ── Notifications ── */
 #notifications {
     position: fixed;
-    top: 36px;
-    right: 10px;
+    top: 38px;
+    right: 12px;
     z-index: 1500;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.notification {
-    background: #3d3d3d;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+.notif {
+    background: #313244;
+    color: #cdd6f4;
+    padding: 14px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     font-size: 13px;
-    animation: slideIn 0.3s ease-out;
-    max-width: 300px;
-    border-left: 4px solid #e95420;
+    animation: notifIn 0.3s ease-out;
+    max-width: 340px;
+    border-left: 4px solid #89b4fa;
 }
 
-@keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
+@keyframes notifIn {
+    from { transform: translateX(120%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
-}
-
-#flag-fab {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: #e95420;
-    color: white;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 16px rgba(233, 84, 32, 0.5);
-    z-index: 800;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-#flag-fab:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 24px rgba(233, 84, 32, 0.7);
-}
-
-#flag-panel {
-    position: fixed;
-    bottom: 85px;
-    right: 20px;
-    width: 320px;
-    background: #2d2d2d;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    z-index: 801;
-    overflow: hidden;
-}
-
-.flag-panel-header {
-    background: #e95420;
-    color: white;
-    padding: 12px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-#flag-panel-close {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 2px 6px;
-    border-radius: 4px;
-}
-
-#flag-panel-close:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.flag-panel-body {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#flag-input {
-    padding: 10px 14px;
-    border-radius: 8px;
-    border: 2px solid #555;
-    background: #1e1e1e;
-    color: #4e9a06;
-    font-family: monospace;
-    font-size: 14px;
-    outline: none;
-}
-
-#flag-input:focus {
-    border-color: #e95420;
-}
-
-#flag-submit {
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    background: #e95420;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-#flag-submit:hover {
-    background: #d14418;
-}
-
-#flag-result {
-    font-size: 13px;
-    min-height: 20px;
-    text-align: center;
-}
-
-#flag-scoreboard {
-    border-top: 1px solid #444;
-    padding: 12px 16px;
-}
-
-.scoreboard-title {
-    font-size: 12px;
-    color: #aaa;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-#scoreboard-list {
-    font-size: 13px;
-    color: #ccc;
-    max-height: 120px;
-    overflow-y: auto;
-}
-
-.scoreboard-entry {
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 0;
-    border-bottom: 1px solid #444;
-}
-
-.scoreboard-entry .challenge-name {
-    color: #4e9a06;
-}
-
-.boot-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #4e9a06;
-    font-family: 'Ubuntu Mono', monospace;
-    font-size: 14px;
-}
-
-.boot-text {
-    white-space: pre;
-    line-height: 1.6;
-    opacity: 0;
-    transition: opacity 0.5s;
-}
-
-.image-viewer-body {
-    background: #1a1a2e;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 20px;
-}
-
-.image-viewer-body .fake-photo {
-    width: 320px;
-    height: 240px;
-    background: linear-gradient(135deg, #2d2d44, #1a1a2e);
-    border: 2px solid #444;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 12px;
-    position: relative;
-    overflow: hidden;
-}
-
-.image-viewer-body .fake-photo .photo-content {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, #1a3a5c 0%, #2d5a3d 40%, #3d6b4a 60%, #1a3a5c 100%);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 20px;
-}
-
-.image-viewer-body .fake-photo .silhouette {
-    font-size: 60px;
-    opacity: 0.7;
-}
-
-.image-meta {
-    background: #111;
-    padding: 12px 16px;
-    border-radius: 6px;
-    font-family: monospace;
-    font-size: 12px;
-    color: #888;
-    width: 320px;
-    line-height: 1.8;
-}
-
-.image-meta .meta-key {
-    color: #4e9a06;
-}
-
-.image-meta .meta-val {
-    color: #ccc;
-}
-
-.image-meta .meta-flag {
-    color: #e95420;
 }

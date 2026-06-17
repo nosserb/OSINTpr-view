@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSINT CTF - Ubuntu Desktop</title>
+    <title>OSINT CTF - Enquête Numérique</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="boot-screen" class="boot-screen">
-        <div class="boot-text" id="boot-text"></div>
+    <!-- Boot -->
+    <div id="boot-screen">
+        <div id="boot-lines"></div>
     </div>
-    <div id="lock-screen">
+
+    <!-- Lock Screen -->
+    <div id="lock-screen" style="display:none;">
         <div id="lock-time"></div>
         <div id="lock-date"></div>
         <div id="lock-user-area">
             <div id="lock-avatar">&#128100;</div>
-            <div id="lock-username">osint_agent</div>
+            <div id="lock-username">Detective</div>
             <input type="password" id="lock-password" placeholder="Mot de passe...">
-            <div id="lock-hint">Indice: le 1er mot de passe d'un hacker connu</div>
+            <div id="lock-hint">Hint : le numero du 112 en France</div>
             <div id="lock-error"></div>
         </div>
         <div id="lock-footer">
-            <span>Ubuntu 22.04.3 LTS</span>
-            <span>&#9889; Alimentation</span>
+            <span>Enquete OSINT v2.0</span>
+            <span>&#9889;</span>
         </div>
     </div>
+
+    <!-- Desktop -->
     <div id="desktop" style="display:none;">
         <div id="top-panel">
             <div class="panel-left">
@@ -35,109 +40,60 @@
             </div>
             <div class="panel-right">
                 <span class="panel-icon">&#128266;</span>
-                <span class="panel-icon">&#128246;</span>
                 <span class="panel-icon">&#9889;</span>
-                <span class="panel-icon" id="panel-power">&#9211;</span>
             </div>
         </div>
+
         <div id="dock">
+            <div class="dock-item" data-app="browser" title="Google Chrome">
+                <div class="dock-icon chrome-icon">&#127760;</div>
+            </div>
             <div class="dock-item" data-app="terminal" title="Terminal">
                 <div class="dock-icon terminal-icon">>&nbsp;</div>
             </div>
-            <div class="dock-item" data-app="browser" title="Firefox">
-                <div class="dock-icon browser-icon">&#127760;</div>
-            </div>
-            <div class="dock-item" data-app="files" title="Files">
+            <div class="dock-item" data-app="files" title="Fichiers">
                 <div class="dock-icon files-icon">&#128193;</div>
             </div>
-            <div class="dock-item" data-app="text" title="Text Editor">
-                <div class="dock-icon text-icon">&#128221;</div>
-            </div>
-            <div class="dock-item" data-app="image" title="Image Viewer">
-                <div class="dock-icon image-icon">&#127912;</div>
-            </div>
-            <div class="dock-separator"></div>
-            <div class="dock-item" data-app="show-apps" title="Show Applications">
-                <div class="dock-icon apps-icon">&#8943;</div>
+            <div class="dock-item" data-app="notes" title="Notes">
+                <div class="dock-icon notes-icon">&#128221;</div>
             </div>
         </div>
+
         <div id="desktop-icons">
-            <div class="desktop-icon" data-app="terminal">
-                <div class="desktop-icon-img terminal-icon">>&nbsp;</div>
-                <span>Terminal</span>
+            <div class="desktop-icon" data-app="dossier">
+                <div class="desktop-icon-img folder-icon">&#128193;</div>
+                <span>Dossier Suspect</span>
             </div>
-            <div class="desktop-icon" data-app="readme">
-                <div class="desktop-icon-img readme-icon">&#128196;</div>
-                <span>briefing.txt</span>
-            </div>
-            <div class="desktop-icon" data-app="photo">
-                <div class="desktop-icon-img photo-icon">&#128247;</div>
-                <span>suspect_photo.jpg</span>
-            </div>
-            <div class="desktop-icon" data-app="notes">
-                <div class="desktop-icon-img notes-icon">&#128221;</div>
-                <span>notes.txt</span>
-            </div>
-            <div class="desktop-icon" data-app="contacts">
-                <div class="desktop-icon-img contacts-icon">&#128101;</div>
-                <span>contacts.csv</span>
+            <div class="desktop-icon" data-app="browser">
+                <div class="desktop-icon-img chrome-icon">&#127760;</div>
+                <span>Google</span>
             </div>
         </div>
+
         <div id="windows-container"></div>
+
         <div id="context-menu">
+            <div class="ctx-item" data-action="browser">Ouvrir Google</div>
+            <div class="ctx-separator"></div>
             <div class="ctx-item" data-action="terminal">Ouvrir le Terminal</div>
-            <div class="ctx-separator"></div>
-            <div class="ctx-item" data-action="new-folder">Nouveau dossier</div>
-            <div class="ctx-item" data-action="paste">Coller</div>
-            <div class="ctx-separator"></div>
-            <div class="ctx-item" data-action="open-terminal">Ouvrir un terminal ici</div>
-            <div class="ctx-separator"></div>
-            <div class="ctx-item" data-action="settings">Paramètres d'affichage</div>
         </div>
-        <div id="activities-overlay" style="display:none;">
-            <div class="activities-search">
-                <input type="text" placeholder="Rechercher..." class="activities-search-input">
-            </div>
-            <div class="activities-grid">
-                <div class="activity-app" data-app="terminal">
-                    <div class="dock-icon terminal-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">>&nbsp;</div>
-                    <span>Terminal</span>
+
+        <!-- Fake Google -->
+        <div id="google-overlay" style="display:none;">
+            <div class="google-page">
+                <div class="google-logo">
+                    <span style="color:#4285f4">G</span><span style="color:#ea4335">o</span><span style="color:#fbbc05">o</span><span style="color:#4285f4">g</span><span style="color:#34a853">l</span><span style="color:#ea4335">e</span>
                 </div>
-                <div class="activity-app" data-app="browser">
-                    <div class="dock-icon browser-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">&#127760;</div>
-                    <span>Firefox</span>
+                <div class="google-search-bar">
+                    <input type="text" id="google-input" placeholder="Rechercher sur Google..." autofocus>
+                    <button id="google-search-btn">&#128269;</button>
                 </div>
-                <div class="activity-app" data-app="files">
-                    <div class="dock-icon files-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">&#128193;</div>
-                    <span>Files</span>
-                </div>
-                <div class="activity-app" data-app="text">
-                    <div class="dock-icon text-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">&#128221;</div>
-                    <span>Text Editor</span>
-                </div>
-                <div class="activity-app" data-app="image">
-                    <div class="dock-icon image-icon" style="width:64px;height:64px;font-size:32px;border-radius:14px;">&#127912;</div>
-                    <span>Image Viewer</span>
-                </div>
+                <div id="google-results"></div>
+                <div id="google-close">&#10005;</div>
             </div>
         </div>
+
         <div id="notifications"></div>
-        <div id="flag-panel" style="display:none;">
-            <div class="flag-panel-header">
-                <span>&#127988; Soumettre un Flag</span>
-                <button id="flag-panel-close">&#10005;</button>
-            </div>
-            <div class="flag-panel-body">
-                <input type="text" id="flag-input" placeholder="OSINT{...}">
-                <button id="flag-submit">Valider</button>
-                <div id="flag-result"></div>
-            </div>
-            <div id="flag-scoreboard">
-                <div class="scoreboard-title">Scoreboard</div>
-                <div id="scoreboard-list"></div>
-            </div>
-        </div>
-        <div id="flag-fab">&#127988;</div>
     </div>
     <script src="script.js"></script>
 </body>
