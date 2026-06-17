@@ -1,109 +1,7 @@
 // =====================================================
 //  OSINT CTF — Enquete Numerique (3e) — HARD MODE
-//  Identite: Zoé Rouleau
+//  Cible: Zoé Rouleau — Les eleves doivent TROUVER les infos via Google
 // =====================================================
-
-// ── FAKE IDENTITY (from identité.txt) ──
-const SUSPECT = {
-    nom: "Zoé Rouleau",
-    prenom: "Zoé",
-    nom_famille: "Rouleau",
-    nom_jeune_fille_mere: "Larocque",
-    age: 22,
-    date_naissance: "25 janvier 2004",
-    signe_zodiaque: "Verseau",
-    adresse: "9, rue de l'Aigle",
-    code_postal: "93210",
-    ville: "La Plaine-Saint-Denis",
-    pays: "France",
-    telephone: "01.66.22.76.72",
-    email: "ZoeRouleau@jourrapide.com",
-    pseudo: "Geore2004",
-    mot_de_passe: "Ohvaes4ipah",
-    site_web: "SewingTags.fr",
-    metier: "Dental ceramist (Céramicienne dentaire)",
-    entreprise: "Laura Ashley",
-    taille: "166 cm",
-    poids: "51.5 kg",
-    groupe_sanguin: "A+",
-    couleur_preferee: "Vert",
-    vehicule: "2012 Audi TT",
-    visa: "4485 9599 6861 8473",
-    gps: "48.960522, 2.432508",
-};
-
-// ── MASSIVE FAKE GOOGLE DATABASE ──
-const googleDB = [
-    // ── Name searches ──
-    { kw: ["zoe", "rouleau"], title: "Zoé Rouleau — Profil professionnel", url: "linkedin.com/in/zoe-rouleau", snippet: `<b>Zoé Rouleau</b> — Céramicienne dentaire chez <b>Laura Ashley</b>. Localisation: <b>La Plaine-Saint-Denis (93)</b>. Diplômée en techniques dentaires. 22 ans.` },
-    { kw: ["zoe", "rouleau", "linkedin"], title: "Zoé Rouleau — LinkedIn", url: "linkedin.com/in/zoe-rouleau-dental", snippet: `<b>Zoé Rouleau</b> — Dental Ceramist at Laura Ashley. La Plaine-Saint-Denis, France. Education: Institut Dentaire de Paris.` },
-    { kw: ["zoe", "rouleau", "saint-denis"], title: "Zoé Rouleau — La Plaine-Saint-Denis", url: "pagesjaunes.fr/zoe-rouleau-saint-denis", snippet: `<b>Zoé Rouleau</b>, 22 ans. Adresse: <b>9, rue de l'Aigle, 93210 La Plaine-Saint-Denis</b>. Telephone: <b>01.66.22.76.72</b>. Email: <b>ZoeRouleau@jourrapide.com</b>.` },
-
-    // ── Username searches ──
-    { kw: ["geore2004", "twitter"], title: "@Geore2004 — Twitter / X", url: "x.com/Geore2004", snippet: `<b>@Geore2004</b> — "Zoé, 22 ans | La Plaine-Saint-Denis | Passionnée de géologie et de couture | Vert 💚 | Audi TT owner 🚗" — 487 abonnés.` },
-    { kw: ["geore2004", "instagram"], title: "@Geore2004 — Instagram", url: "instagram.com/geore2004", snippet: `<b>@Geore2004</b> — 1 203 abonnes. Bio: "Zoé 💚 | 93 | Dental ceramist | SewingTags.fr | Vert est ma couleur préférée" — 89 publications.` },
-    { kw: ["geore2004", "github"], title: "Geore2004 — GitHub", url: "github.com/Geore2004", snippet: `<b>Geore2004</b> has 7 repositories. Top languages: Python, HTML. Bio: "Zoé Rouleau — La Plaine-Saint-Denis. Geology & sewing."` },
-    { kw: ["geore2004"], title: "Geore2004 — Recherche multi-plateformes", url: "namechk.com/Geore2004", snippet: `Pseudonyme <b>Geore2004</b> trouve sur: Twitter (@Geore2004), Instagram (@Geore2004), GitHub (Geore2004). Utilise par <b>Zoé Rouleau</b>.` },
-
-    // ── Email searches ──
-    { kw: ["zoerouleau", "jourrapide"], title: "ZoeRouleau@jourrapide.com — Email", url: "haveibeenpwned.com/ZoeRouleau@jourrapide.com", snippet: `Adresse email: <b>ZoeRouleau@jourrapide.com</b>. Detectee dans 2 fuites de donnees. Derniere fuite: mars 2024. Associee a <b>Zoé Rouleau</b>.` },
-    { kw: ["zoerouleau", "jourrapide", "email"], title: "ZoeRouleau@jourrapide.com — Profil", url: "emailrep.io/ZoeRouleau@jourrapide.com", snippet: `Email: <b>ZoeRouleau@jourrapide.com</b>. Nom: <b>Zoé Rouleau</b>. Localisation: La Plaine-Saint-Denis, France. Compte actif depuis 2022.` },
-
-    // ── Site web ──
-    { kw: ["sewingtags", "fr"], title: "SewingTags.fr — Site de Zoé Rouleau", url: "sewingtags.fr", snippet: `<b>SewingTags.fr</b> — Blog de couture et étiquettes personnalisées. Créé par <b>Zoé Rouleau</b>, 22 ans, basée à <b>La Plaine-Saint-Denis</b>. Passion: couture, géologie, voitures.` },
-    { kw: ["sewingtags", "zoe"], title: "SewingTags.fr — A propos", url: "sewingtags.fr/a-propos", snippet: `"Je suis <b>Zoé Rouleau</b>, 22 ans, basée à <b>La Plaine-Saint-Denis (93)</b>. Je travaille comme céramicienne dentaire chez <b>Laura Ashley</b>. Ma couleur préférée: <b>vert</b>. Je conduis une <b>Audi TT</b>."` },
-
-    // ── Voiture ──
-    { kw: ["zoe", "rouleau", "audi", "tt"], title: "Zoé Rouleau — Audi TT 2012", url: "cartegrise.com/zoe-rouleau", snippet: `Vehicule: <b>Audi TT 2012</b>. Proprietaire: <b>Zoé Rouleau</b>, nee le 25/01/2004 a Paris. Adresse: 9, rue de l'Aigle, 93210 La Plaine-Saint-Denis.` },
-    { kw: ["audi", "tt", "2012", "zoe"], title: "Audi TT 2012 — Propriétaire identifié", url: "infoplaque.fr/audi-tt-zoe-rouleau", snippet: `Voiture: <b>Audi TT grise, 2012</b>. Proprietaire: <b>Zoé Rouleau</b>. Adresse: La Plaine-Saint-Denis. Assurance: AXA.` },
-
-    // ── Adresse ──
-    { kw: ["rue", "aigle", "saint-denis", "93210"], title: "9, rue de l'Aigle — La Plaine-Saint-Denis", url: "google-maps.fr/9-rue-aigle-93210", snippet: `Adresse: <b>9, rue de l'Aigle, 93210 La Plaine-Saint-Denis</b>. GPS: <b>48.960522, 2.432508</b>. Quartier résidentiel, proche du Stade de France.` },
-    { kw: ["93210", "saint-denis", "code", "postal"], title: "93210 — La Plaine-Saint-Denis", url: "annuaire-ville.fr/93210", snippet: `Code postal <b>93210</b> — <b>La Plaine-Saint-Denis</b>, Seine-Saint-Denis (93). Habitants notables: <b>Zoé Rouleau</b>, 22 ans, rue de l'Aigle.` },
-
-    // ── Entreprise ──
-    { kw: ["laura", "ashley", "dental", "ceramist"], title: "Laura Ashley — Équipe dentaire", url: "laura-ashley-dental.fr/equipe", snippet: `Equipe <b>Laura Ashley Dental</b>. Membre: <b>Zoé Rouleau</b>, Céramicienne dentaire. Localisation: Paris / La Plaine-Saint-Denis.` },
-    { kw: ["zoe", "rouleau", "laura", "ashley"], title: "Zoé Rouleau — Laura Ashley", url: "laura-ashley-dental.fr/zoe-rouleau", snippet: `<b>Zoé Rouleau</b> — Céramicienne dentaire chez Laura Ashley. Specialites: couronnes, bridges, protheses dentaires. Basee a <b>La Plaine-Saint-Denis</b>.` },
-
-    // ── Telephone ──
-    { kw: ["01", "66", "22", "76", "72"], title: "01.66.22.76.72 — Numero de telephone", url: "pagesjaunes.fr/01-66-22-76-72", snippet: `Numero: <b>01.66.22.76.72</b>. Nom: <b>Zoé Rouleau</b>. Localisation: <b>La Plaine-Saint-Denis (93)</b>. Categorie: Personnel.` },
-
-    // ── Naissance / Age ──
-    { kw: ["zoe", "rouleau", "naissance", "2004"], title: "Zoé Rouleau — État civil", url: "annuaire-ville.fr/zoe-rouleau", snippet: `<b>Zoé Rouleau</b>, née le <b>25 janvier 2004</b> à Paris. Age: <b>22 ans</b>. Signe: <b>Verseau</b>. Nationalité: française.` },
-    { kw: ["zoe", "rouleau", "25", "janvier"], title: "Zoé Rouleau — Date de naissance", url: "publicrecords.fr/zoe-rouleau-2004", snippet: `Nom: <b>Zoé Rouleau</b>. Date de naissance: <b>25/01/2004</b>. Lieu: Paris, France. Age: 22 ans. Signe astrologique: <b>Verseau</b>.` },
-
-    // ── Groupe sanguin / physique ──
-    { kw: ["zoe", "rouleau", "sang", "groupe"], title: "Zoé Rouleau — Groupe sanguin", url: "dossiermedical.fr/zoe-rouleau", snippet: `<b>Zoé Rouleau</b> — Groupe sanguin: <b>A+</b>. Taille: 166 cm. Poids: 51.5 kg. Données médicales enregistrées à La Plaine-Saint-Denis.` },
-
-    // ── Mot de passe / Securite ──
-    { kw: ["ohvaes4ipah", "password"], title: "Fuite de données — Mot de passe compromis", url: "haveibeenpwned.com/passwords/ohvaes4ipah", snippet: `Le mot de passe <b>ohvaes4ipah</b> a ete trouve dans 3 fuites de donnees. Associe a l'email: <b>ZoeRouleau@jourrapide.com</b>. Risque: ÉLEVÉ.` },
-
-    // ── Visa ──
-    { kw: ["4485", "9599", "visa", "carte"], title: "Carte Visa — 4485 9599 6861 8473", url: "banque-france.fr/4485-9599", snippet: `Carte Visa securisee. Proprietaire: <b>Zoé Rouleau</b>. Date d'expiration: <b>10/2028</b>. Adresse de facturation: 9, rue de l'Aigle, 93210 La Plaine-Saint-Denis.` },
-
-    // ── Tracking ──
-    { kw: ["1z", "670", "ups", "colis"], title: "UPS — Suivi de colis 1Z 670 4A5 05 4819 435 1", url: "ups.com/tracking/1Z6704A50548194351", snippet: `Colis UPS en cours de livraison. Destinataire: <b>Zoé Rouleau</b>. Adresse: 9, rue de l'Aigle, 93210 La Plaine-Saint-Denis. Statut: Livré.` },
-    { kw: ["western", "union", "9772688327"], title: "Western Union — Transfert 9772688327", url: "westernunion.fr/9772688327", snippet: `Transfert Western Union. MTCN: <b>9772688327</b>. Expediteur: <b>Zoé Rouleau</b>. Montant: 150 EUR. Destinataire: M. Larocque (famille).` },
-
-    // ── GPS ──
-    { kw: ["48.960522", "2.432508"], title: "Coordonnées GPS — 48.960522, 2.432508", url: "google-maps.fr/48.960522-2.432508", snippet: `Position GPS: <b>48.960522, 2.432508</b>. Adresse: <b>9, rue de l'Aigle, La Plaine-Saint-Denis</b>. Zone: Résidentielle, proche du Stade de France.` },
-
-    // ── Zodiac ──
-    { kw: ["zoe", "rouleau", "verseau", "zodiaque"], title: "Zoé Rouleau — Signe astrologique: Verseau", url: "horoscope.fr/zoe-rouleau", snippet: `<b>Zoé Rouleau</b>, née le 25 janvier 2004 — Signe: <b>Verseau</b> ♒. Couleur chanceuse: <b>Vert</b>. Nombre chanceux: 7.` },
-
-    // ── Nom de jeune fille de la mère ──
-    { kw: ["larocque", "rouleau", "mere"], title: "Famille Rouleau — Nom de jeune fille de la mère: Larocque", url: "genealogie.fr/rouleau-larocque", snippet: `Famille <b>Rouleau</b>. Mère de <b>Zoé Rouleau</b>: née <b>Larocque</b>. Adresse familiale: La Plaine-Saint-Denis.` },
-
-    // ── User agent / Navigateur ──
-    { kw: ["chrome", "74", "mac", "osx"], title: "Navigateur detecté — Chrome 74 sur Mac OS X", url: "whatismybrowser.com/tech/chrome-74", snippet: `User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36. Navigateur: <b>Chrome 74.0.3729.157</b> sur <b>Mac OS X</b>. Appareil: Mac.` },
-
-    // ── GUID ──
-    { kw: ["d4f359ff", "guid"], title: "GUID: d4f359ff-aa51-47cb-b920-93ce2d8178f5", url: "tracking.fr/d4f359ff", snippet: `Identifiant unique (GUID): <b>d4f359ff-aa51-47cb-b920-93ce2d8178f5</b>. Associe au compte: <b>Zoé Rouleau</b>. Cree le 25/01/2004.` },
-
-    // ── Bonus: Flag ──
-    { kw: ["osint", "flag", "ctf", "zoe"], title: "CTF OSINT — Challenge: Zoé Rouleau", url: "ctf-challenges.fr/osint/zoe-rouleau", snippet: `<span style="color:#e95420;font-weight:bold;">OSINT{zoe_rouleau_93210_verseau_2012}</span> — Challenge OSINT résolu. Identité confirmée: Zoé Rouleau, 22 ans, La Plaine-Saint-Denis, céramicienne dentaire.` },
-    { kw: ["ctf", "flag", "rouleau"], title: "Flag OSINT — Zoé Rouleau", url: "ctf-challenges.fr/flags/zoe-rouleau", snippet: `<span style="color:#e95420;font-weight:bold;">OSINT{zoe_rouleau_93210_verseau_2012}</span> — Bravo! Vous avez retrouvé l'identité complète de la cible.` },
-];
 
 // ── BOOT SEQUENCE ──
 const bootScreen = document.getElementById("boot-screen");
@@ -126,7 +24,7 @@ const bootMsgs = [
     "[    0.400] Reseau: eth0 — 192.168.1.47/24",
     "[    0.500] Connexion: securisee (VPN actif)",
     "[    0.600] Base de donnees d'enquete: connectee",
-    "[    0.700] 47 cibles dans la base active",
+    "[    0.700] 1 cible identifiee — en attente",
     "[    0.800] Vault a flags: verrouille",
     "[    0.900] Systeme pret.",
     "",
@@ -183,8 +81,8 @@ lockPwd.addEventListener("keydown", (e) => {
             dt.style.opacity = "0";
             dt.style.transition = "opacity 0.5s";
             setTimeout(() => dt.style.opacity = "1", 50);
-            setTimeout(() => notify("Mission chargee. Lisez le fichier d'identite puis utilisez Google.", 7000), 1000);
-            setTimeout(() => notify("Indice: tapez 'guide' dans le terminal pour un pas-a-pas.", 6000), 3500);
+            setTimeout(() => notify("Mission chargee. Un fichier d'identite partiel a ete intercepte.", 7000), 1000);
+            setTimeout(() => notify("Ouvrez le Terminal et tapez 'guide' pour commencer.", 6000), 3500);
         }, 500);
     } else if (e.key === "Enter") {
         lockErr.textContent = "Acces refuse. Indice: c'est le numero d'urgence europeen.";
@@ -248,8 +146,7 @@ function openTerminal() {
 <div class="term-line" style="color:#89b4fa">║    Niveau agent: DEBUTANT                    ║</div>
 <div class="term-line" style="color:#89b4fa">╚══════════════════════════════════════════════╝</div>
 <div class="term-line"></div>
-<div class="term-line">Tapez <b style="color:#f9e2af">'help'</b> pour voir les commandes.</div>
-<div class="term-line">Ou tapez <b style="color:#f9e2af">'guide'</b> pour un pas-a-pas.</div>
+<div class="term-line">Tapez <b style="color:#f9e2af">'guide'</b> pour commencer.</div>
 <div class="term-line"></div>
 <div class="term-input-row">
 <span class="term-prompt">detective@osint:~$</span>
@@ -290,43 +187,37 @@ function runCmd(c) {
   <span style="color:#f9e2af">date</span>                 — Date et heure
   <span style="color:#f9e2af">clear</span>                — Vider le terminal
   <span style="color:#f9e2af">google</span>               — Ouvrir Google (recherche web)
-  <span style="color:#f9e2af">guide</span>                — Guide pas-a-pas pour debutants
-  <span style="color:#f9e2af">nmap 192.168.1.0/24</span> — Scanner le reseau
-  <span style="color:#f9e2af">theharvester &lt;nom&gt;</span>  — Outil OSINT (emails)
-  <span style="color:#f9e2af">sherlock &lt;pseudo&gt;</span>   — Chercher un pseudo en ligne
-  <span style="color:#f9e2af">exif &lt;image&gt;</span>        — Lire les metadata d'une photo`,
+  <span style="color:#f9e2af">guide</span>                — Guide pas-a-pas pour debutants`,
 
         "guide": `<span style="color:#89b4fa">╔══════════════════════════════════════════════╗</span>
 <span style="color:#89b4fa">║     GUIDE PAS-A-PAS — DEBUTANT OSINT          ║</span>
 <span style="color:#89b4fa">╚══════════════════════════════════════════════╝</span>
 
-<span style="color:#f9e2af">ETAPE 1 — Lire le fichier d'identite:</span>
+<span style="color:#f9e2af">ETAPE 1 — Lire le fichier intercepte:</span>
   Tapez: <b>cat identite.txt</b>
-  -> Vous verrez toutes les infos de la cible
+  -> Vous y trouverez un nom et une adresse
 
 <span style="color:#f9e2af">ETAPE 2 — Ouvrir Google:</span>
   Tapez: <b>google</b>
   -> Une page de recherche s'ouvre
 
-<span style="color:#f9e2af">ETAPE 3 — Chercher la cible:</span>
-  Dans Google, essayez ces recherches:
-  - <b>Zoé Rouleau</b> (le nom complet)
-  - <b>@Geore2004</b> (le pseudo)
-  - <b>ZoeRouleau@jourrapide.com</b> (l'email)
-  - <b>SewingTags.fr</b> (le site web)
-  - <b>Laura Ashley dental</b> (l'entreprise)
-  - <b>Audi TT 2012</b> (la voiture)
+<span style="color:#f9e2af">ETAPE 3 — Chercher la cible sur Google:</span>
+  Commencez par: <b>Zoé Rouleau La Plaine-Saint-Denis</span>
+  Puis essayez d'autres recherches pour trouver:
+    - Son email
+    - Son pseudo / comptes reseaux
+    - Son metier
+    - Sa voiture
+    - Ses centres d'interet
+    - Sa photo
+    - Le flag!
 
-<span style="color:#f9e2af">ETAPE 4 — Utiliser les outils OSINT:</span>
-  <b>theharvester Zoé Rouleau</b>  -> emails
-  <b>sherlock Geore2004</b>          -> pseudos
-  <b>exif photo.jpg</b>             -> metadata photo
+<span style="color:#f38ba8">Chaque recherche Google vous donnera des infos
+supplementaires. Explorez tout!</span>
 
-<span style="color:#f9e2af">ETAPE 5 — Trouver le flag:</span>
-  Le flag se cache dans un resultat Google!
-  Cherchez: <b>CTF OSINT Zoé Rouleau</b>
-
-<span style="color:#f38ba8">Bonne chance, agent!</span>`,
+<span style="color:#f9e2af">CONSEIL:</span>
+  Plus vous cherchez, plus vous en apprenez.
+  Le flag se cache dans un des resultats Google.`,
 
         "ls": `identite.txt   briefing.txt   notes.txt   photo.jpg`,
         "whoami": "detective_osint",
@@ -335,40 +226,30 @@ function runCmd(c) {
         "clear": "__CLEAR__",
 
         "cat identite.txt": `<span style="color:#f9e2af">╔══════════════════════════════════════════════╗</span>
-<span style="color:#f9e2af">║       FICHIER D'IDENTITE — CIBLE              ║</span>
+<span style="color:#f9e2af">║       FICHIER INTERCEPTE — PARTIEL            ║</span>
 <span style="color:#f9e2af">╚══════════════════════════════════════════════╝</span>
 
 <span style="color:#89b4fa">Nom:</b> Zoé Rouleau
-<span style="color:#89b4fa">Adresse:</b> 9, rue de l'Aigle, 93210 La Plaine-Saint-Denis
-<span style="color:#89b4fa">Nom de jeune fille de la mère:</b> Larocque
-<span style="color:#89b4fa">NIRPP:</b> 2040193756144 90
-<span style="color:#89b4fa">GPS:</b> 48.960522, 2.432508
+<span style="color:#89b4fa">Adresse:</b> 9, rue de l'Aigle
+<span style="color:#89b4fa">Code postal:</b> 93210
+<span style="color:#89b4fa">Ville:</b> La Plaine-Saint-Denis
+
+<span style="color:#89b4fa">Nom de jeune fille de la mere:</b> Larocque
 
 <span style="color:#89b4fa">Telephone:</b> 01.66.22.76.72
-<span style="color:#89b4fa">Date de naissance:</b> January 25, 2004
-<span style="color:#89b4fa">Age:</b> 22 ans
-<span style="color:#89b4fa">Signe:</b> Verseau
 
-<span style="color:#89b4fa">Email:</b> ZoeRouleau@jourrapide.com
-<span style="color:#89b4fa">Pseudo:</b> Geore2004
-<span style="color:#89b4fa">Mot de passe:</b> Ohvaes4ipah
-<span style="color:#89b4fa">Site web:</b> SewingTags.fr
+<span style="color:#f38ba8">⚠ Ce fichier est PARTIEL.</span>
+<span style="color:#f38ba8">Beaucoup d'infos manquent!</span>
 
-<span style="color:#89b4fa">Visa:</b> 4485 9599 6861 8473
-<span style="color:#89b4fa">Expire:</b> 10/2028
-<span style="color:#89b4fa">CVV2:</b> 232
+<span style="color:#f9e2af">Utilisez Google pour trouver:</span>
+  - Son email
+  - Son pseudo / comptes reseaux
+  - Son metier / entreprise
+  - Sa voiture
+  - Ses centres d'interet
+  - Sa date de naissance
+  - Et le FLAG!
 
-<span style="color:#89b4fa">Entreprise:</b> Laura Ashley
-<span style="color:#89b4fa">Metier:</b> Dental ceramist
-
-<span style="color:#89b4fa">Taille:</b> 166 cm
-<span style="color:#89b4fa">Poids:</b> 51.5 kg
-<span style="color:#89b4fa">Groupe sanguin:</b> A+
-
-<span style="color:#89b4fa">Couleur preferee:</b> Vert
-<span style="color:#89b4fa">Vehicule:</b> 2012 Audi TT
-
-<span style="color:#f38ba8">Utilisez Google pour retrouver plus d'infos!</span>
 Tapez: <b>google</b>`,
 
         "cat briefing.txt": `<span style="color:#89b4fa">╔══════════════════════════════════════════════╗</span>
@@ -377,73 +258,42 @@ Tapez: <b>google</b>`,
 
 Agent,
 
-Nous avons intercepte un fichier d'identite
+Un fichier d'identite partiel a ete intercepte
 concernant une cible: <b>Zoé Rouleau</b>.
 
-Ce fichier contient beaucoup d'informations.
-Votre mission: <b>confirmer ces donnees via Google</b>
+Ce fichier contient: nom et adresse.
+<b>Le reste est a retrouver via Google.</b>
 
-<span style="color:#f9e2af">ETAPES:</span>
+<span style="color:#f9e2af">VOTRE MISSION:</span>
 1. Lisez le fichier: <b>cat identite.txt</b>
 2. Ouvrez Google: <b>google</b>
 3. Cherchez: <b>Zoé Rouleau</b>
-4. Verifiez: email, pseudo, metier, voiture...
-5. Trouvez le <b>flag</b> dans les resultats!
+4. Explorez les resultats
+5. Trouvez le <b>FLAG</b>
 
-<span style="color:#f9e2af">OUTILS:</span>
-- <b>google</b> : recherche web simulee
-- <b>theharvester Zoé Rouleau</b> : emails
-- <b>sherlock Geore2004</b> : pseudos
-- <b>exif photo.jpg</b> : metadata image
+<span style="color:#f9e2af">CE QUE VOUS DEVEZ TROUVER:</span>
+  - Son email
+  - Son pseudo / comptes reseaux sociaux
+  - Son metier et son entreprise
+  - Sa voiture (marque et modele)
+  - Sa date de naissance
+  - Ses centres d'interet
+  - Le FLAG (dans un resultat Google)
 
-<span style="color:#f38ba8">Le flag se trouve dans les resultats Google.</span>
-
-Bonne enquete, agent!`,
+<span style="color:#f38ba8">Bonne chance, agent!</span>`,
 
         "cat notes.txt": `<span style="color:#89b4fa">=== NOTES D'ENQUETE ===</span>
 
-Cible identifiee: <b>Zoé Rouleau</b>
-Adresse: 9, rue de l'Aigle, 93210 La Plaine-Saint-Denis
-Pseudo: <b>Geore2004</b>
-Email: <b>ZoeRouleau@jourrapide.com</b>
+Cible: <b>Zoé Rouleau</b>
+Adresse: <b>9, rue de l'Aigle, 93210 La Plaine-Saint-Denis</b>
 
-Elle travaille chez <b>Laura Ashley</b> comme
-céramicienne dentaire.
+Elle a ete vue dans le quartier des Chartrons
+a Bordeaux. Elle conduit une voiture.
 
-Elle conduit une <b>Audi TT 2012</b>.
+<span style="color:#f9e2af">Indice: cherchez le nom de la cible sur Google
+pour decouvrir ses comptes reseaux sociaux.</span>`,
 
-Sa couleur préférée est le <b>vert</b>.
-
-<span style="color:#f9e2af">Indice: cherchez le pseudo Geore2004 sur
-differentes plateformes.</span>`,
-
-        "nmap 192.168.1.0/24": `Starting Nmap 7.94 ( https://nmap.org )
-Nmap scan report for 192.168.1.0/24
-HOST           PORT     STATE  SERVICE
-192.168.1.1    80/tcp   open   http    (Routeur)
-192.168.1.42   22/tcp   open   ssh     (Recon-station)
-192.168.1.42   80/tcp   open   http    (Web server)
-192.168.1.42   443/tcp  open   https
-192.168.1.100  3306/tcp open   mysql   (Base de donnees)`,
-
-        "theharvester zoe rouleau": `TheHarvester v3.2 — OSINT Email Collector
-Searching for: Zoé Rouleau
-Domain: gmail.com
-----------------------
-Found: <b>ZoeRouleau@jourrapide.com</b>
-Found: z.rouleau@laura-ashley.fr (pro)
-Results: 2 emails found`,
-
-        "sherlock geore2004": `Sherlock — Search username across platforms
-Username: Geore2004
----------------------------------------
-[+] Twitter/X: x.com/Geore2004
-[+] Instagram: instagram.com/geore2004
-[+] GitHub: github.com/Geore2004
-[+] Facebook: PAS TROUVE
-Result: 3/4 plateformes trouvees`,
-
-        "exif photo.jpg": `<span style="color:#f9e2af">=== EXIF METADATA — photo.jpg ===</span>
+        "cat photo.jpg": `<span style="color:#89b4fa">=== EXIF METADATA — photo.jpg ===</span>
 Fichier: photo.jpg
 Taille: 2.1 Mo
 Date: 14/01/2024 14:22:33
@@ -451,21 +301,88 @@ Camera: iPhone 13
 <span style="color:#f9e2af">GPS Latitude: 48.960522 N</span>
 <span style="color:#f9e2af">GPS Longitude: 2.432508 E</span>
 <span style="color:#f9e2af">Lieu: 9, rue de l'Aigle, La Plaine-Saint-Denis</span>
-Artist: <b>Zoé Rouleau</b>
-Copyright: <b>ZoeRouleau@jourrapide.com</b>`,
+<span style="color:#89b4fa">Artist:</b> non renseigne
+<span style="color:#89b4fa">Copyright:</b> non renseigne
 
-        "cat photo.jpg": "Fichier binaire. Utilisez: <b>exif photo.jpg</b>",
+<span style="color:#f38ba8">Utilisez Google pour trouver qui a pris cette photo!</span>`,
     };
 
     if (c === "") return null;
     if (m[c]) return m[c];
-    if (c.startsWith("sherlock ")) return `<span style="color:#f38ba8">Utilisez le pseudo du fichier: sherlock Geore2004</span>`;
-    if (c.startsWith("theharvester ")) return `<span style="color:#f38ba8">Utilisez le nom de la cible: theharvester Zoé Rouleau</span>`;
-    if (c.startsWith("nmap")) return `<span style="color:#f38ba8">Syntaxe: nmap 192.168.1.0/24</span>`;
-    if (c.startsWith("exif")) return `<span style="color:#f38ba8">Syntaxe: exif photo.jpg</span>`;
-    if (c === "cat identite") return m["cat identite.txt"];
     return `<span style="color:#f38ba8">bash: ${c}: commande inconnue. Tapez 'help'.</span>`;
 }
+
+// ── FAKE GOOGLE DATABASE ──
+// Les eleves cherchent, et Google leur renvoie des resultats
+// qui revelent des infos PAS dans le fichier identite
+const googleDB = [
+    // ── Recherche principale: le nom ──
+    { kw: ["zoe", "rouleau", "saint-denis"], title: "Zoé Rouleau — La Plaine-Saint-Denis (93)", url: "pagesjaunes.fr/zoe-rouleau-93210", snippet: `<b>Zoé Rouleau</b>, 22 ans. Adresse: <b>9, rue de l'Aigle, 93210 La Plaine-Saint-Denis</b>. Telephone: <b>01.66.22.76.72</b>. Email: <b>ZoeRouleau@jourrapide.com</b>.` },
+
+    // ── Email ──
+    { kw: ["zoerouleau", "jourrapide", "mail"], title: "ZoeRouleau@jourrapide.com — Profil", url: "emailrep.io/ZoeRouleau@jourrapide.com", snippet: `Email: <b>ZoeRouleau@jourrapide.com</b>. Proprietaire: <b>Zoé Rouleau</b>. Compte actif. Associe aux comptes: Twitter, Instagram, GitHub.` },
+    { kw: ["zoerouleau", "jourrapide"], title: "ZoeRouleau@jourrapide.com — Fuite de donnees", url: "haveibeenpwned.com/ZoeRouleau@jourrapide.com", snippet: `<b>ZoeRouleau@jourrapide.com</b> trouve dans 2 fuites. Derniere fuite: mars 2024. Associe a <b>Zoé Rouleau</b>.` },
+
+    // ── Pseudo: Geore2004 ──
+    { kw: ["geore2004", "twitter", "x"], title: "@Geore2004 — Twitter / X", url: "x.com/Geore2004", snippet: `<b>@Geore2004</b> — "Zoé, 22 ans | La Plaine-Saint-Denis | Passionnee de geologie et de couture | Vert | Audi TT" — 487 abonnes. Dernier tweet: "Belle journee a La Plaine! Geologie walk 🌿"` },
+    { kw: ["geore2004", "instagram"], title: "@Geore2004 — Instagram", url: "instagram.com/geore2004", snippet: `<b>@Geore2004</b> — 1 203 abonnes. Bio: "Zoé | 93 | Dental ceramist | SewingTags.fr | Vert est ma couleur" — 89 publications. Photos de roches, couture, et La Plaine-Saint-Denis.` },
+    { kw: ["geore2004", "github"], title: "Geore2004 — GitHub", url: "github.com/Geore2004", snippet: `<b>Geore2004</b> — 7 repositories. Languages: Python, HTML. Bio: "Zoé Rouleau — La Plaine-Saint-Denis. Geology & sewing."` },
+    { kw: ["geore2004"], title: "Geore2004 — Tous les comptes", url: "namechk.com/Geore2004", snippet: `Pseudo <b>Geore2004</b> trouve sur: Twitter (@Geore2004), Instagram (@Geore2004), GitHub (Geore2004). Utilise par <b>Zoé Rouleau</b>.` },
+
+    // ── Metier ──
+    { kw: ["zoe", "rouleau", "laura", "ashley", "dental"], title: "Zoé Rouleau — Laura Ashley Dental", url: "laura-ashley-dental.fr/equipe", snippet: `<b>Zoé Rouleau</b> — Céramicienne dentaire chez Laura Ashley. Specialites: couronnes, bridges, protheses. Basee a La Plaine-Saint-Denis.` },
+    { kw: ["zoe", "rouleau", "dental", "ceramist"], title: "Zoé Rouleau — Dental Ceramist", url: "linkedin.com/in/zoe-rouleau-dental", snippet: `<b>Zoé Rouleau</b> — Dental Ceramist at Laura Ashley. La Plaine-Saint-Denis. Education: Institut Dentaire de Paris.` },
+
+    // ── Voiture ──
+    { kw: ["zoe", "rouleau", "audi", "tt"], title: "Zoé Rouleau — Audi TT 2012", url: "cartegrise.com/zoe-rouleau", snippet: `Vehicule: <b>Audi TT 2012</b>. Proprietaire: <b>Zoé Rouleau</b>. Adresse: 9, rue de l'Aigle, 93210 La Plaine-Saint-Denis.` },
+
+    // ── GPS ──
+    { kw: ["48.960522", "2.432508", "gps"], title: "GPS: 48.960522, 2.432508", url: "google-maps.fr/48.960522-2.432508", snippet: `Position: <b>48.960522, 2.432508</b>. Adresse: <b>9, rue de l'Aigle, La Plaine-Saint-Denis</b>. Zone residentielle, proche du Stade de France.` },
+
+    // ── Site web ──
+    { kw: ["sewingtags", "fr"], title: "SewingTags.fr — Blog de couture", url: "sewingtags.fr", snippet: `<b>SewingTags.fr</b> — Blog de couture. Cree par <b>Zoé Rouleau</b>, 22 ans, La Plaine-Saint-Denis. Passion: couture, geologie.` },
+    { kw: ["sewingtags", "zoe", "a-propos"], title: "SewingTags.fr — A propos", url: "sewingtags.fr/a-propos", snippet: `"Je suis <b>Zoé Rouleau</b>, 22 ans. Céramicienne dentaire chez Laura Ashley. Ma couleur préférée: <b>vert</b>. Je conduis une <b>Audi TT</b>."` },
+
+    // ── Telephone ──
+    { kw: ["01", "66", "22", "76", "72"], title: "01.66.22.76.72 — Telephone", url: "pagesjaunes.fr/01-66-22-76-72", snippet: `Numero: <b>01.66.22.76.72</b>. Nom: <b>Zoé Rouleau</b>. La Plaine-Saint-Denis. Categorie: Personnel.` },
+
+    // ── Naissance ──
+    { kw: ["zoe", "rouleau", "naissance", "2004", "25", "janvier"], title: "Zoé Rouleau — Date de naissance", url: "annuaire-ville.fr/zoe-rouleau", snippet: `<b>Zoé Rouleau</b>, nee le <b>25 janvier 2004</b> a Paris. Age: <b>22 ans</b>. Signe: <b>Verseau</b>.` },
+
+    // ── Famille ──
+    { kw: ["larocque", "rouleau"], title: "Famille Rouleau-Larocque", url: "genealogie.fr/rouleau-larocque", snippet: `Famille <b>Rouleau</b>. Mere de <b>Zoé Rouleau</b>: nee <b>Larocque</b>. Adresse: La Plaine-Saint-Denis.` },
+
+    // ── Naissance / Age ──
+    { kw: ["zoe", "rouleau", "25", "janvier", "2004"], title: "Zoé Rouleau — 25 janvier 2004", url: "publicrecords.fr/zoe-rouleau-2004", snippet: `<b>Zoé Rouleau</b>, nee le <b>25/01/2004</b> a Paris. 22 ans. Nationalite: francaise.` },
+
+    // ── Couleur preferee ──
+    { kw: ["zoe", "rouleau", "vert", "couleur"], title: "Zoé Rouleau — Couleur preferee: Vert", url: "profil-perso.fr/zoe-rouleau", snippet: `<b>Zoé Rouleau</b> — Couleur preferee: <b>Vert</b>. Signe: Verseau. Signe chinois: Cheval de feu.` },
+
+    // ── Visa ──
+    { kw: ["4485", "9599", "visa"], title: "Carte Visa — 4485 9599 6861 8473", url: "banque-france.fr/4485-9599", snippet: `Carte Visa. Proprietaire: <b>Zoé Rouleau</b>. Expiration: <b>10/2028</b>. Adresse: 9, rue de l'Aigle, 93210.` },
+
+    // ── Tracking ──
+    { kw: ["1z", "670", "ups", "colis"], title: "UPS — Colis livré", url: "ups.com/tracking/1Z6704A50548194351", snippet: `Colis livré. Destinataire: <b>Zoé Rouleau</b>. Adresse: 9, rue de l'Aigle, 93210 La Plaine-Saint-Denis.` },
+
+    // ── Western Union ──
+    { kw: ["western", "union", "9772688327"], title: "Western Union — Transfert", url: "westernunion.fr/9772688327", snippet: `Transfert: MTCN <b>9772688327</b>. Expediteur: <b>Zoé Rouleau</b>. Montant: 150 EUR. Destinataire: M. Larocque.` },
+
+    // ── Zodiac ──
+    { kw: ["zoe", "rouleau", "verseau"], title: "Zoé Rouleau — Verseau", url: "horoscope.fr/zoe-rouleau", snippet: `<b>Zoé Rouleau</b> — Verseau. Couleur: <b>Vert</b>. Nombre: 7.` },
+
+    // ── Groupe sanguin ──
+    { kw: ["zoe", "rouleau", "sang", "groupe", "a+"], title: "Zoé Rouleau — Groupe sanguin A+", url: "dossiermedical.fr/zoe-rouleau", snippet: `<b>Zoé Rouleau</b> — Groupe: <b>A+</b>. Taille: 166 cm. Poids: 51.5 kg.` },
+
+    // ── Mot de passe ──
+    { kw: ["ohvaes4ipah"], title: "Fuite — Mot de passe", url: "haveibeenpwned.com/passwords/ohvaes4ipah", snippet: `Mot de passe <b>ohvaes4ipah</b> trouvable dans 3 fuites. Associe a: <b>ZoeRouleau@jourrapide.com</b>.` },
+
+    // ── GUID ──
+    { kw: ["d4f359ff", "guid"], title: "GUID: d4f359ff-aa51-47cb", url: "tracking.fr/d4f359ff", snippet: `GUID: <b>d4f359ff-aa51-47cb-b920-93ce2d8178f5</b>. Associe a: <b>Zoé Rouleau</b>.` },
+
+    // ── FLAG ──
+    { kw: ["ctf", "osint", "flag", "zoe", "rouleau"], title: "CTF OSINT — Challenge Zoé Rouleau", url: "ctf-challenges.fr/osint/zoe-rouleau", snippet: `<span style="color:#e95420;font-weight:bold;">OSINT{zoe_rouleau_93210_verseau_vert_audi}</span> — Challenge resolu! Identite confirmee: Zoé Rouleau, 22 ans, La Plaine-Saint-Denis, Verseau, vert, Audi TT.` },
+    { kw: ["ctf", "flag", "rouleau"], title: "Flag OSINT — Zoé Rouleau", url: "ctf-challenges.fr/flags/zoe-rouleau", snippet: `<span style="color:#e95420;font-weight:bold;">OSINT{zoe_rouleau_93210_verseau_vert_audi}</span> — Bravo agent!` },
+];
 
 // ── GOOGLE SEARCH ──
 function openGoogle() {
@@ -508,14 +425,13 @@ function doSearch() {
         res.innerHTML = `
             <div class="g-no-results">
                 Aucun resultat pour "<b>${q}</b>".<br><br>
-                <span style="color:#888">Conseils:</span><br>
-                - Essayez: <b>Zoé Rouleau</b><br>
-                - Essayez: <b>Geore2004</b><br>
-                - Essayez: <b>ZoeRouleau@jourrapide.com</b><br>
-                - Essayez: <b>SewingTags.fr</b><br>
-                - Essayez: <b>Laura Ashley dental</b><br>
-                - Essayez: <b>Audi TT 2012</b><br>
-                - Essayez: <b>CTF OSINT Zoé Rouleau</b> (pour le flag!)<br>
+                <span style="color:#888">Essayez:</span><br>
+                - <b>Zoé Rouleau</b><br>
+                - <b>Geore2004</b><br>
+                - <b>ZoeRouleau@jourrapide.com</b><br>
+                - <b>SewingTags.fr</b><br>
+                - <b>Audi TT 2012</b><br>
+                - <b>CTF OSINT Zoé Rouleau</b><br>
             </div>`;
         return;
     }
@@ -546,24 +462,19 @@ photo.jpg</div>`, 360, 260); break;
 
 Cible: <b>Zoé Rouleau</b>
 Adresse: 9, rue de l'Aigle, 93210 La Plaine-Saint-Denis
-Pseudo: <b>Geore2004</b>
-Email: <b>ZoeRouleau@jourrapide.com</b>
 
-Elle travaille chez <b>Laura Ashley</b>.
-Elle conduit une <b>Audi TT 2012</b>.
-Sa couleur preferee: <b>vert</b>.
+Elle a ete vue dans le quartier des Chartrons
+a Bordeaux. Elle conduit une voiture.
 
-<span style="color:#f9e2af">Utilisez Google pour confirmer!</span></div>`, 520, 380); break;
+<span style="color:#f9e2af">Utilisez Google pour en savoir plus!</span></div>`, 520, 380); break;
         case "dossier": makeWin("Dossier Suspect", `<div class="text-view"><span style="color:#89b4fa">╔══════════════════════════════════╗</span>
 <span style="color:#89b4fa">║       DOSSIER SUSPECT            ║</span>
 <span style="color:#89b4fa">╚══════════════════════════════════╝</span>
 
 Nom: <b>Zoé Rouleau</b>
 Adresse: <b>9, rue de l'Aigle, 93210 La Plaine-Saint-Denis</b>
-Pseudo: <b>Geore2004</b>
-Email: <b>ZoeRouleau@jourrapide.com</b>
 
-<span style="color:#f9e2af">Utilisez Google pour retrouver plus d'infos!</span></div>`, 520, 380); break;
+<span style="color:#f9e2af">Utilisez Google pour trouver le reste!</span></div>`, 520, 380); break;
     }
 }
 
