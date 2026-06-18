@@ -7,10 +7,10 @@ const found = {};
 const errors = [];
 
 const TARGETS = {
-    zoe: { name: "Zoé Rouleau", hint: "93210, ceramicienne dentaire, Geore2004" },
-    kevin: { name: "Kevin Duval", hint: "Montpellier, DJ, Twingo rose" },
-    brigitte: { name: "Brigitte Legrand", hint: "Nantes, 12 chats, MamieChat44" },
-    mystere: { name: "Agent X", hint: "75013, Kali Linux, Python" },
+    zoe: { name: "Zoé Rouleau", hint: "93210, ceramicienne dentaire, Geore2004", points: 10 },
+    kevin: { name: "Kevin Duval", hint: "Montpellier, DJ, Twingo rose", points: 10 },
+    brigitte: { name: "Brigitte Legrand", hint: "Nantes, 12 chats, MamieChat44", points: 10 },
+    mystere: { name: "Agent X", hint: "75013, Kali Linux, Python, ProtonMail", points: 25 },
 };
 
 const ALL_FACTS = [
@@ -98,23 +98,40 @@ const ALL_FACTS = [
     { id:"bf6", target:"brigitte", cat:"erreurs", label:"Faux age", value:"32 ans (Paris)", correct:false },
     { id:"bf7", target:"brigitte", cat:"erreurs", label:"Fausse voiture", value:"Porsche Cayenne (Lyon)", correct:false },
     { id:"bf8", target:"brigitte", cat:"erreurs", label:"Faux email", value:"brigitte.legrand@wanadoo.fr (Marseille)", correct:false },
-    { id:"x1", target:"mystere", cat:"identite", label:"Pseudo", value:"Agent_X_75013", correct:true },
-    { id:"x2", target:"mystere", cat:"identite", label:"Adresse", value:"13 rue de la Malvernette, 75013 Paris", correct:true },
-    { id:"x3", target:"mystere", cat:"contact", label:"Email", value:"agent.x.secour@protonmail.com", correct:true },
-    { id:"x4", target:"mystere", cat:"reseaux", label:"GitHub", value:"agent-x-anonymous", correct:true },
-    { id:"x5", target:"mystere", cat:"reseaux", label:"Reddit", value:"u/AgentX75013", correct:true },
-    { id:"x6", target:"mystere", cat:"reseaux", label:"Telegram", value:"@agent_x_officiel", correct:true },
-    { id:"x7", target:"mystere", cat:"divers", label:"Signature", value:"Des infos, pas des opinions", correct:true },
-    { id:"x8", target:"mystere", cat:"divers", label:"Activite principale", value:"Fishing — Peche aux donnees", correct:true },
-    { id:"x9", target:"mystere", cat:"divers", label:"Langage prefere", value:"Python", correct:true },
-    { id:"x10", target:"mystere", cat:"divers", label:"OS prefere", value:"Kali Linux", correct:true },
-    { id:"x11", target:"mystere", cat:"divers", label:"FLAG", value:"OSINT{agent_x_75013_kali_linux_protonmail}", correct:true },
+    { id:"x1", target:"mystere", cat:"identite", label:"Pseudo principal", value:"Agent_X_75013", correct:true },
+    { id:"x2", target:"mystere", cat:"identite", label:"Adresse complete", value:"13 rue de la Malvernette, 75013 Paris", correct:true },
+    { id:"x3", target:"mystere", cat:"identite", label:"Code postal", value:"75013", correct:true },
+    { id:"x4", target:"mystere", cat:"contact", label:"Email ProtonMail", value:"agent.x.secour@protonmail.com", correct:true },
+    { id:"x5", target:"mystere", cat:"contact", label:"Email secondaire", value:"agentx75013@tutanota.com", correct:true },
+    { id:"x6", target:"mystere", cat:"reseaux", label:"GitHub username", value:"agent-x-anonymous", correct:true },
+    { id:"x7", target:"mystere", cat:"reseaux", label:"GitHub bio", value:"Des infos, pas des opinions", correct:true },
+    { id:"x8", target:"mystere", cat:"reseaux", label:"Reddit username", value:"u/AgentX75013", correct:true },
+    { id:"x9", target:"mystere", cat:"reseaux", label:"Telegram", value:"@agent_x_officiel", correct:true },
+    { id:"x10", target:"mystere", cat:"reseaux", label:"Keybase proof", value:"keybase.io/agentx75013", correct:true },
+    { id:"x11", target:"mystere", cat:"divers", label:"Signature", value:"Des infos, pas des opinions", correct:true },
+    { id:"x12", target:"mystere", cat:"divers", label:"Activite principale", value:"Fishing — Peche aux donnees", correct:true },
+    { id:"x13", target:"mystere", cat:"divers", label:"Langage prefere", value:"Python", correct:true },
+    { id:"x14", target:"mystere", cat:"divers", label:"OS prefere", value:"Kali Linux", correct:true },
+    { id:"x15", target:"mystere", cat:"divers", label:"Framework Python", value:"Scrapy + BeautifulSoup", correct:true },
+    { id:"x16", target:"mystere", cat:"divers", label:"Navigateur Tor", value:"Tor Browser", correct:true },
+    { id:"x17", target:"mystere", cat:"divers", label:"VPN utilise", value:"Mullvad VPN", correct:true },
+    { id:"x18", target:"mystere", cat:"divers", label:"Mot de passe passe", value:"hunter2_c0mpl3x!", correct:true },
+    { id:"x19", target:"mystere", cat:"divers", label:"Hash MD5 du pseudo", value:"d4f359ffaa5147cb", correct:true },
+    { id:"x20", target:"mystere", cat:"divers", label:"Version Kali", value:"Kali 2024.1", correct:true },
+    { id:"x21", target:"mystere", cat:"divers", label:"Nombre de repos GitHub", value:"42 repositories", correct:true },
+    { id:"x22", target:"mystere", cat:"divers", label:"FLAG principal", value:"OSINT{agent_x_75013_kali_linux_protonmail}", correct:true },
+    { id:"x23", target:"mystere", cat:"divers", label:"FLAG secret (hard)", value:"OSINT{agent_x_tor_mullvad_scrapy_42repos}", correct:true },
+    // Faux AGENT X
     { id:"xf1", target:"mystere", cat:"erreurs", label:"Faux Agent X 75001", value:"Agent X — 1 rue de la Paix, 75001", correct:false },
     { id:"xf2", target:"mystere", cat:"erreurs", label:"Faux Agent X Lyon", value:"Agent X — Lyon, hacker lyonnais", correct:false },
     { id:"xf3", target:"mystere", cat:"erreurs", label:"Faux pseudo", value:"@H4CK3R_FR (autre pseudo)", correct:false },
     { id:"xf4", target:"mystere", cat:"erreurs", label:"Faux email", value:"hacker@anonymous.fr", correct:false },
     { id:"xf5", target:"mystere", cat:"erreurs", label:"Faux OS", value:"Windows 11 (pas Kali)", correct:false },
     { id:"xf6", target:"mystere", cat:"erreurs", label:"Faux langage", value:"HTML (pas Python)", correct:false },
+    { id:"xf7", target:"mystere", cat:"erreurs", label:"Faux VPN", value:"NordVPN (pas Mullvad)", correct:false },
+    { id:"xf8", target:"mystere", cat:"erreurs", label:"Faux Tor", value:"Safari (pas Tor Browser)", correct:false },
+    { id:"xf9", target:"mystere", cat:"erreurs", label:"Faux framework", value:"Django (pas Scrapy)", correct:false },
+    { id:"xf10", target:"mystere", cat:"erreurs", label:"Faux repos", value:"420 repositories (pas 42)", correct:false },
 ];
 
 // ═══ GOOGLE DB — RECHERCHE PROGRESSIVE ═══
@@ -211,20 +228,36 @@ const googleDB = [
     { minKw:2, kw:["brigitte.legrand","wanadoo"], title:"brigitte.legrand@wanadoo.fr", url:"emailrep.io", snippet:`<span class="osint-word" data-id="bf8">brigitte.legrand@wanadoo.fr</span> — Autre Brigitte. Marseille.` },
     { minKw:4, kw:["ctf","osint","brigitte","flag"], title:"CTF — Brigitte Legrand", url:"ctf-challenges.fr", snippet:`<span class="osint-word" data-id="b17" style="color:#e95420;font-weight:bold">OSINT{brigitte_legrand_nantes_12_chats_mamiechat44}</span>` },
 
-    // ── AGENT X: 2-3 MOTS ──
+    // ── AGENT X: Recherches complexes (minKw 2-5) ──
     { minKw:2, kw:["agent","75013"], title:"Agent X — Paris 13e", url:"pagesjaunes.fr/agent-x-75013", snippet:`<span class="osint-word" data-id="x1">Agent_X_75013</span>. Adresse: <span class="osint-word" data-id="x2">13 rue de la Malvernette, 75013 Paris</span>.` },
-    { minKw:2, kw:["agent","lyon"], title:"Agent X — Lyon", url:"github.com", snippet:`<span class="osint-word" data-id="xf2">Agent X</span> — <span class="osint-word" data-id="xf2">Lyon</span>. Hacker lyonnais.` },
+    { minKw:2, kw:["agent","lyon"], title:"Agent X — Lyon", url:"github.com", snippet:`<span class="osint-word" data-id="xf2">Agent X</span> — <span class="osint-word" data-id="xf2">Lyon</span>. Hacker lyonnais. PAS notre Agent X.` },
     { minKw:2, kw:["agent","75001"], title:"Agent X — 75001", url:"google.fr", snippet:`<span class="osint-word" data-id="xf1">Agent X</span> — <span class="osint-word" data-id="xf1">1 rue de la Paix, 75001</span>. PAS notre Agent X.` },
-    { minKw:2, kw:["agent.x.secour","protonmail"], title:"agent.x.secour@protonmail.com", url:"emailrep.io", snippet:`<span class="osint-word" data-id="x3">agent.x.secour@protonmail.com</span>. Agent X. Paris 13e.` },
-    { minKw:2, kw:["agent-x-anonymous"], title:"agent-x-anonymous — GitHub", url:"github.com/agent-x-anonymous", snippet:`<span class="osint-word" data-id="x4">agent-x-anonymous</span> — Bio: "Des infos, pas des opinions." Langages: <span class="osint-word" data-id="x9">Python</span>.` },
-    { minKw:2, kw:["agentx75013"], title:"u/AgentX75013 — Reddit", url:"reddit.com/u/AgentX75013", snippet:`<span class="osint-word" data-id="x5">u/AgentX75013</span> — 5 678 karma. Posts sur r/osint.` },
-    { minKw:2, kw:["agent_x_officiel"], title:"@agent_x_officiel — Telegram", url:"t.me/agent_x_officiel", snippet:`<span class="osint-word" data-id="x6">@agent_x_officiel</span> — "Des infos, pas des opinions."` },
-    { minKw:3, kw:["agent","x","kali"], title:"Agent X — Kali Linux", url:"kali.org/blog", snippet:`<span class="osint-word" data-id="x10">Kali Linux</span> — Agent X utilise cet OS.` },
-    { minKw:3, kw:["agent","x","python"], title:"Agent X — Python", url:"medium.com/@agent-x", snippet:`<span class="osint-word" data-id="x8">Fishing — Peche aux donnees</span>. <span class="osint-word" data-id="x7">"Des infos, pas des opinions."</span> <span class="osint-word" data-id="x9">Python</span>.` },
-    { minKw:2, kw:["h4cker_fr"], title:"@H4CK3R_FR", url:"twitter.com/H4CK3R_FR", snippet:`<span class="osint-word" data-id="xf3">@H4CK3R_FR</span> — "Je hack tout" — 12 abonnes.` },
-    { minKw:2, kw:["hacker","anonymous"], title:"hacker@anonymous.fr", url:"emailrep.io", snippet:`<span class="osint-word" data-id="xf4">hacker@anonymous.fr</span> — Email generique.` },
+    { minKw:2, kw:["agent.x.secour","protonmail"], title:"agent.x.secour@protonmail.com", url:"emailrep.io", snippet:`<span class="osint-word" data-id="x4">agent.x.secour@protonmail.com</span>. Agent X. Paris 13e.` },
+    { minKw:2, kw:["agent-x-anonymous"], title:"agent-x-anonymous — GitHub", url:"github.com/agent-x-anonymous", snippet:`<span class="osint-word" data-id="x6">agent-x-anonymous</span> — Bio: "Des infos, pas des opinions." Langages: <span class="osint-word" data-id="x13">Python</span>. <span class="osint-word" data-id="x21">42 repositories</span>.` },
+    { minKw:2, kw:["agentx75013"], title:"u/AgentX75013 — Reddit", url:"reddit.com/u/AgentX75013", snippet:`<span class="osint-word" data-id="x8">u/AgentX75013</span> — 5 678 karma. Posts sur r/osint, r/privacy, r/netsec.` },
+    { minKw:2, kw:["agent_x_officiel"], title:"@agent_x_officiel — Telegram", url:"t.me/agent_x_officiel", snippet:`<span class="osint-word" data-id="x9">@agent_x_officiel</span> — 3 456 abonnes. "Des infos, pas des opinions."` },
+    { minKw:2, kw:["keybase","agentx"], title:"keybase.io/agentx75013", url:"keybase.io/agentx75013", snippet:`<span class="osint-word" data-id="x10">keybase.io/agentx75013</span> — Proof PGP: 8A2F 4B9C D3E1 F5A6. Identity verified.` },
+    { minKw:3, kw:["agent","x","kali"], title:"Agent X — Kali Linux", url:"kali.org/blog", snippet:`<span class="osint-word" data-id="x14">Kali Linux</span> — Agent X utilise <span class="osint-word" data-id="x20">Kali 2024.1</span>. Config personnalisee avec 200+ outils.` },
+    { minKw:3, kw:["agent","x","python"], title:"Agent X — Python OSINT", url:"medium.com/@agent-x", snippet:`<span class="osint-word" data-id="x12">Fishing — Peche aux donnees</span>. <span class="osint-word" data-id="x11">"Des infos, pas des opinions."</span> <span class="osint-word" data-id="x13">Python</span> + <span class="osint-word" data-id="x15">Scrapy + BeautifulSoup</span>.` },
+    { minKw:3, kw:["agent","x","tor"], title:"Agent X — Tor Browser", url:"darknet.faqs/agent-x", snippet:`Agent X utilise <span class="osint-word" data-id="x16">Tor Browser</span> pour ses recherches. Configuration: sortie France uniquement. <span class="osint-word" data-id="x17">Mullvad VPN</span> en amont.` },
+    { minKw:3, kw:["agent","x","mullvad"], title:"Agent X — Mullvad VPN", url:"mullvad.net/agent-x", snippet:`<span class="osint-word" data-id="x17">Mullvad VPN</span> — Agent X utilise ce VPN. Pas de logs. Paye en especes.` },
+    { minKw:3, kw:["agent","x","scrapy"], title:"Agent X — Scrapy Framework", url:"scrapy.org/agent-x", snippet:`<span class="osint-word" data-id="x15">Scrapy + BeautifulSoup</span> — Frameworks preferes d'Agent X pour le web scraping OSINT.` },
+    { minKw:3, kw:["agent","x","42","repos"], title:"Agent X — 42 Repos GitHub", url:"github.com/agent-x-anonymous", snippet:`<span class="osint-word" data-id="x21">42 repositories</span> sur GitHub. Projets: osint-tools, web-scraper, data-analyzer, phishing-detector.` },
+    { minKw:3, kw:["agent","x","hash","md5"], title:"Agent X — Hash MD5 du pseudo", url:"hashes.com/agentx", snippet:`Hash MD5 du pseudo <span class="osint-word" data-id="x1">Agent_X_75013</span>: <span class="osint-word" data-id="x19">d4f359ffaa5147cb</span>. Trouve dans une base de donnees de hashs.` },
+    { minKw:3, kw:["agent","x","tutanota"], title:"Agent X — Email secondaire", url:"emailrep.io/agentx75013", snippet:`<span class="osint-word" data-id="x5">agentx75013@tutanota.com</span> — Email secondaire d'Agent X. Utilise pour les inscriptions discretes.` },
+    { minKw:3, kw:["agent","x","mot","passe"], title:"Agent X — Mot de passe", url:"haveibeenpwned.com/hunter2", snippet:`Mot de passe <span class="osint-word" data-id="x18">hunter2_c0mpl3x!</span> trouve dans une fuite 2023. Associe a <span class="osint-word" data-id="x4">agent.x.secour@protonmail.com</span>.` },
+    { minKw:4, kw:["agent","x","kali","2024"], title:"Agent X — Kali 2024.1", url:"kali.org/blog/agent-x-config", snippet:`Config Agent X: <span class="osint-word" data-id="x20">Kali 2024.1</span>. Personnalise avec scripts custom. <span class="osint-word" data-id="x13">Python</span>, <span class="osint-word" data-id="x15">Scrapy</span>, <span class="osint-word" data-id="x16">Tor</span>.` },
+    { minKw:4, kw:["agent","x","tor","mullvad"], title:"Agent X — Setup Tor + Mullvad", url:"privacy-guides.org/agent-x", snippet:`Setup Agent X: <span class="osint-word" data-id="x16">Tor Browser</span> + <span class="osint-word" data-id="x17">Mullvad VPN</span>. Double couche de protection. Sortie: France uniquement.` },
+    { minKw:4, kw:["agent","x","github","42"], title:"Agent X — 42 Repos", url:"github.com/agent-x-anonymous?tab=repositories", snippet:`<span class="osint-word" data-id="x21">42 repositories</span>. Top: osint-tools (89 stars), web-scraper (67 stars), <span class="osint-word" data-id="x15">scrapy-osint</span> (54 stars).` },
+    { minKw:5, kw:["ctf","osint","agent","x","flag"], title:"CTF — Agent X (Hard)", url:"ctf-challenges.fr/agent-x-hard", snippet:`<span class="osint-word" data-id="x22" style="color:#e95420;font-weight:bold">OSINT{agent_x_75013_kali_linux_protonmail}</span> + <span class="osint-word" data-id="x23" style="color:#e95420;font-weight:bold">OSINT{agent_x_tor_mullvad_scrapy_42repos}</span>` },
+    { minKw:2, kw:["h4cker_fr"], title:"@H4CK3R_FR", url:"twitter.com/H4CK3R_FR", snippet:`<span class="osint-word" data-id="xf3">@H4CK3R_FR</span> — "Je hack tout" — 12 abonnes. PAS Agent X.` },
+    { minKw:2, kw:["hacker","anonymous"], title:"hacker@anonymous.fr", url:"emailrep.io", snippet:`<span class="osint-word" data-id="xf4">hacker@anonymous.fr</span> — Email generique. PAS Agent X.` },
     { minKw:3, kw:["agent","x","windows"], title:"Agent X — Windows 11", url:"microsoft.com", snippet:`<span class="osint-word" data-id="xf5">Windows 11</span> — PAS notre Agent X (il utilise Kali).` },
     { minKw:3, kw:["agent","x","html"], title:"Agent X — HTML", url:"w3schools.com", snippet:`<span class="osint-word" data-id="xf6">HTML</span> — PAS notre Agent X (il utilise Python).` },
+    { minKw:3, kw:["agent","x","nordvpn"], title:"Agent X — NordVPN", url:"nordvpn.com/agent-x", snippet:`<span class="osint-word" data-id="xf7">NordVPN</span> — PAS notre Agent X (il utilise Mullvad).` },
+    { minKw:3, kw:["agent","x","safari"], title:"Agent X — Safari", url:"apple.com/safari", snippet:`<span class="osint-word" data-id="xf8">Safari</span> — PAS notre Agent X (il utilise Tor Browser).` },
+    { minKw:3, kw:["agent","x","django"], title:"Agent X — Django", url:"djangoproject.com", snippet:`<span class="osint-word" data-id="xf9">Django</span> — PAS notre Agent X (il utilise Scrapy).` },
+    { minKw:3, kw:["agent","x","420","repos"], title:"Agent X — 420 Repos (FAUX)", url:"github.com/fake-agent-x", snippet:`<span class="osint-word" data-id="xf10">420 repositories</span> — PAS notre Agent X (il en a 42).` },
     { minKw:4, kw:["ctf","osint","agent","x","flag"], title:"CTF — Agent X", url:"ctf-challenges.fr", snippet:`<span class="osint-word" data-id="x11" style="color:#e95420;font-weight:bold">OSINT{agent_x_75013_kali_linux_protonmail}</span>` },
 ];
 
@@ -253,7 +286,7 @@ function openTerminal() { const body = `<div class="terminal-body"><div class="t
 function runCmd(c) { const m = { "help": `Commandes: <span style="color:#f9e2af">ls, cat, guide, google, clear</span>`, "guide": `<span style="color:#89b4fa">╔══════════════════════════════════════════════╗</span>\n<span style="color:#89b4fa">║     GUIDE — 4 CIBLES — RECHERCHE PROGRESSIVE ║</span>\n<span style="color:#89b4fa">╚══════════════════════════════════════════════╝</span>\n\n<span style="color:#f38ba8">RECHERCHE PROGRESSIVE:</span>\n- Tapez "zoe" → resultats vagues (juste le prenom)\n- Tapez "zoe rouleau" → plus de resultats\n- Tapez "zoe rouleau 93210" → resultat precis!\n\n<span style="color:#f9e2af">CIBLES:</span>\n1. <b>Zoé Rouleau</b> — 93210, ceramicienne dentaire\n2. <b>Kevin Duval</b> — Montpellier, DJ, Twingo rose\n3. <b>Brigitte Legrand</b> — Nantes, 12 chats\n4. <b>Agent X</b> — 75013, Kali Linux, Python\n\n<span style="color:#f38ba8">Plus vous etes precis, plus vous trouvez d'infos!</span>`, "ls": `identite.txt   briefing.txt`, "whoami": "detective_osint", "pwd": "/home/detective", "date": new Date().toString(), "clear": "__CLEAR__", "cat identite.txt": `<span style="color:#f9e2af">╔══════════════════════════════════════════════╗</span>\n<span style="color:#f9e2af">║       4 FICHIERS — DONNEES CIBLES             ║</span>\n<span style="color:#f9e2af">╚══════════════════════════════════════════════╝</span>\n\n<span style="color:#89b4fa">CIBLE 1 — Zoé Rouleau:</span>\n  <b>93210</b> La Plaine-Saint-Denis\n  <b>Ceramicienne dentaire</b> — Laura Ashley\n  Pseudo: <b>Geore2004</b>\n  <b>Audi TT 2012</b>\n\n<span style="color:#89b4fa">CIBLE 2 — Kevin Duval:</span>\n  <b>34000 Montpellier</b>\n  <b>DJ evenementiel</b> — KevMaster Events\n  Pseudo: <b>DJ_KevMaster_Fire</b>\n  <b>Renault Twingo rose</b>\n\n<span style="color:#89b4fa">CIBLE 3 — Brigitte Legrand:</span>\n  <b>44000 Nantes</b>\n  <b>12 chats</b> — ancienne institutrice\n  Pseudo: <b>MamieChat44</b>\n  <b>Citroen C3 bleue</b>\n\n<span style="color:#89b4fa">CIBLE 4 — Agent X:</span>\n  <b>75013 Paris</b>\n  <b>Kali Linux</b> — Python — ProtonMail\n  GitHub: <b>agent-x-anonymous</b>`, "cat briefing.txt": `<span style="color:#89b4fa">╔══════════════════════════════════════════════╗</span>\n<span style="color:#89b4fa">║     MISSION — RECHERCHE PROGRESSIVE          ║</span>\n<span style="color:#89b4fa">╚══════════════════════════════════════════════╝</span>\n\nAgent, 4 dossiers interceptes.\n\n<span style="color:#f9e2af">RECHERCHE PROGRESSIVE:</span>\nGoogle donne moins d'infos si vous etes vague!\n- "zoe" → juste le prenom\n- "zoe rouleau" → resultats multiples\n- "zoe rouleau 93210" → le bon!\n\n<span style="color:#f38ba8">Chaque mauvais clic = -10 points!</span>\nAffinez vos recherches avant de cliquer!`, }; if (c === "") return null; if (m[c]) return m[c]; return `<span style="color:#f38ba8">bash: ${c}: commande inconnue. Tapez 'help'.</span>`; }
 
 // ═══ CLICK HANDLER ═══
-function handleWordClick(e) { const el = e.target.closest(".osint-word"); if (!el || el.classList.contains("clicked-correct") || el.classList.contains("clicked-wrong")) return; const id = el.dataset.id; const fact = ALL_FACTS.find(f => f.id === id); if (!fact) return; if (fact.correct) { if (!found[id]) { score += 10; found[id] = fact; addSidebarItem(fact); updateScore(); notify("+10 "+fact.label+": "+fact.value, "notif-success"); } el.classList.add("clicked-correct"); } else { score = Math.max(0, score - 10); errors.push(fact); addErrorItem(fact); updateScore(); notify("-10 PIEGE: "+fact.value, "notif-error"); el.classList.add("clicked-wrong"); } }
+function handleWordClick(e) { const el = e.target.closest(".osint-word"); if (!el || el.classList.contains("clicked-correct") || el.classList.contains("clicked-wrong")) return; const id = el.dataset.id; const fact = ALL_FACTS.find(f => f.id === id); if (!fact) return; const pts = TARGETS[fact.target] ? TARGETS[fact.target].points : 10; if (fact.correct) { if (!found[id]) { score += pts; found[id] = fact; addSidebarItem(fact); updateScore(); notify("+"+pts+" "+fact.label+": "+fact.value, "notif-success"); } el.classList.add("clicked-correct"); } else { score = Math.max(0, score - pts); errors.push(fact); addErrorItem(fact); updateScore(); notify("-"+pts+" PIEGE: "+fact.value, "notif-error"); el.classList.add("clicked-wrong"); } }
 
 // ═══ SIDEBAR ═══
 function addSidebarItem(fact) { let container = document.getElementById("info-"+fact.target); if (!container) { const section = document.createElement("div"); section.className = "sidebar-section"; section.innerHTML = `<div class="sidebar-title">${TARGETS[fact.target].name}</div><div class="sidebar-items" id="info-${fact.target}"></div>`; document.getElementById("sidebar-body").insertBefore(section, document.getElementById("info-erreurs").parentElement); container = document.getElementById("info-"+fact.target); } const item = document.createElement("div"); item.className = "sidebar-item"; item.innerHTML = `<b>${fact.label}:</b> ${fact.value}`; container.appendChild(item); }
