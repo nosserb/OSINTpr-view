@@ -20,7 +20,7 @@
             <div id="lock-avatar">&#128100;</div>
             <div id="lock-username">Detective</div>
             <input type="password" id="lock-password" placeholder="Mot de passe...">
-            <div id="lock-hint">Hint : Une école de tech à Rouen.</div>
+            <div id="lock-hint">Hint : le numero du 112 en France</div>
             <div id="lock-error"></div>
         </div>
         <div id="lock-footer">
@@ -45,38 +45,26 @@
         </div>
 
         <div id="dock">
-            <div class="dock-item" data-app="browser" title="Google Chrome">
+            <div class="dock-item" data-app="google" title="Google Chrome">
                 <div class="dock-icon chrome-icon">&#127760;</div>
-            </div>
-            <div class="dock-item" data-app="terminal" title="Terminal">
-                <div class="dock-icon terminal-icon">>&nbsp;</div>
-            </div>
-            <div class="dock-item" data-app="notes" title="Notes">
-                <div class="dock-icon notes-icon">&#128221;</div>
             </div>
         </div>
 
         <div id="desktop-icons">
-            <div class="desktop-icon" data-app="dossier">
-                <div class="desktop-icon-img folder-icon">&#128193;</div>
-                <span>Dossier Suspect</span>
-            </div>
-            <div class="desktop-icon" data-app="browser">
+            <div class="desktop-icon" data-app="google">
                 <div class="desktop-icon-img chrome-icon">&#127760;</div>
                 <span>Google</span>
             </div>
-            <div class="desktop-icon" data-app="terminal">
-                <div class="desktop-icon-img terminal-icon">>&nbsp;</div>
-                <span>Terminal</span>
+            <div class="desktop-icon" data-app="dossier">
+                <div class="desktop-icon-img folder-icon">&#128193;</div>
+                <span>Dossier Suspect</span>
             </div>
         </div>
 
         <div id="windows-container"></div>
 
         <div id="context-menu">
-            <div class="ctx-item" data-action="browser">Ouvrir Google</div>
-            <div class="ctx-separator"></div>
-            <div class="ctx-item" data-action="terminal">Ouvrir le Terminal</div>
+            <div class="ctx-item" data-action="google">Ouvrir Google</div>
         </div>
 
         <!-- Fake Google -->
@@ -104,7 +92,7 @@
                         </div>
                     </div>
                     <div id="sidebar-tooltip" class="sidebar-tooltip">
-                        <b>Astuce:</b> Affinez vos recherches Google pour trouver plus d'infos!
+                        <b>Astuce:</b> Tapez un nom dans la barre de recherche Google.
                     </div>
                     <div class="sidebar-footer">
                         <div id="progress-bar"><div id="progress-fill"></div></div>

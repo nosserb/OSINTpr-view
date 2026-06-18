@@ -371,12 +371,32 @@ function doSearch() {
 }
 
 // ═══ EVENTS ═══
-function openApp(app) { switch (app) { case "browser": openGoogle(); break; case "terminal": openTerminal(); break; case "notes": makeWin("Notes", `<div class="text-view"><span style="color:#89b4fa">=== 4 CIBLES ===</span>\n\n1. <b>Zoé Rouleau</b> — 93210\n2. <b>Kevin Duval</b> — Montpellier\n3. <b>Brigitte Legrand</b> — Nantes\n4. <b>Agent X</b> — 75013\n\n<span style="color:#f38ba8">Affinez vos recherches Google!</span></div>`, 520, 380); break; case "dossier": makeWin("Dossier", `<div class="text-view"><span style="color:#89b4fa">=== DOSSIER ===</span>\n\n<b>Zoé Rouleau</b> — 93210\n<b>Kevin Duval</b> — Montpellier\n<b>Brigitte Legrand</b> — Nantes\n<b>Agent X</b> — 75013\n\n<span style="color:#f38ba8">Plus etes precis, plus vous trouvez!</span></div>`, 520, 380); break; } }
-document.querySelectorAll("[data-app]").forEach((el) => { el.addEventListener("dblclick", () => openApp(el.dataset.app)); el.addEventListener("click", () => { if (el.dataset.app === "browser") openApp("browser"); }); });
+function openApp(app) {
+    if (app === "google") openGoogle();
+    if (app === "dossier") {
+        makeWin("Dossier Suspect", `<div class="text-view"><span style="color:#89b4fa">╔══════════════════════════════════╗</span>\n<span style="color:#89b4fa">║       DOSSIER — 4 CIBLES         ║</span>\n<span style="color:#89b4fa">╚══════════════════════════════════╝</span>\n\n<b>Zoé Rouleau</b> — 93210 — Ceramicienne\n<b>Kevin Duval</b> — Montpellier — DJ\n<b>Brigitte Legrand</b> — Nantes — 12 chats\n<b>Agent X</b> — 75013 — Hacker\n\n<span style="color:#f38ba8">Ouvrez Google et cherchez ces noms!</span></div>`, 520, 380);
+    }
+}
+
+document.querySelectorAll("[data-app]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openApp(el.dataset.app);
+    });
+});
+
 const dt = document.getElementById("desktop");
-dt.addEventListener("contextmenu", (e) => { e.preventDefault(); const m = document.getElementById("context-menu"); m.style.display = "block"; m.style.left = e.clientX + "px"; m.style.top = e.clientY + "px"; });
+dt.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    const m = document.getElementById("context-menu");
+    m.style.display = "block";
+    m.style.left = e.clientX + "px";
+    m.style.top = e.clientY + "px";
+});
 document.addEventListener("click", () => (document.getElementById("context-menu").style.display = "none"));
-document.querySelectorAll(".ctx-item").forEach((i) => { i.addEventListener("click", () => { if (i.dataset.action === "browser") openGoogle(); if (i.dataset.action === "terminal") openTerminal(); }); });
+document.querySelectorAll(".ctx-item").forEach((i) => {
+    i.addEventListener("click", () => { if (i.dataset.action === "google") openGoogle(); });
+});
 
 function notify(msg, cls) { const c = document.getElementById("notifications"); const n = document.createElement("div"); n.className = "notif" + (cls ? " " + cls : ""); n.textContent = msg; c.appendChild(n); setTimeout(() => { n.style.transition = "opacity 0.3s"; n.style.opacity = "0"; setTimeout(() => n.remove(), 300); }, 3000); }
 
